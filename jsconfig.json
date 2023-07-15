@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "baseUrl": "goit-react-native-hw-02/src"
+  },
+  "include": ["goit-react-native-hw-02/src"]
+}
