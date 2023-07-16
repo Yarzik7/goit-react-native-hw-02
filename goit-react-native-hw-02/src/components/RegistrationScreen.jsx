@@ -1,69 +1,67 @@
 import {
-  KeyboardAvoidingView,
   StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  ImageBackground,
-  Image,
 } from 'react-native';
-import addButton from '../assets/add.png';
+import Avatar from './Avatar';
+import AuthInput from './AuthInput';
+import { useState } from 'react';
 
-const RegistrationScreen = () => {
+const RegistrationScreen = ({
+  isKeyboardShow,
+  setIsKeyboardShow,
+  setActiveScreen,
+}) => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <View style={styles.container}>
-        <View style={styles.pfotoContainer}>
-          <TouchableOpacity style={styles.addbutton} activeOpacity={0.5}>
-            <Image
-              source={addButton}
-              style={{ width: '100%', height: '100%' }}
-            ></Image>
-          </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      <Avatar isKeyboardShow={isKeyboardShow} />
+      <Text style={styles.title}>Реєстрація</Text>
+      <View style={styles.registerForm}>
+        <AuthInput
+          type={'text'}
+          value={login}
+          placeholder={'Логін'}
+          onChange={setLogin}
+        />
 
-        <Text style={styles.title}>Реєстрація</Text>
+        <AuthInput
+          type={'email'}
+          value={email}
+          placeholder={'Адреса електронної пошти'}
+          onChange={setEmail}
+        />
 
-        <View style={styles.registerForm}>
+        <AuthInput
+          type={'password'}
+          value={password}
+          placeholder={'Пароль'}
+          onChange={setPassword}
+        />
+              
+        {!isKeyboardShow && (
           <View>
-            <TextInput
-              style={styles.inputLogin}
-              placeholder="Login"
-              inputMode="text"
-            />
-          </View>
-
-          <View>
-            <TextInput
-              style={styles.inputMailPassw}
-              placeholder="Email address"
-              inputMode="email"
-            />
-          </View>
-
-          <View>
-            <TextInput
-              style={styles.inputMailPassw}
-              placeholder="Password"
-              secureTextEntry={true}
-            />
-            <TouchableOpacity style={styles.showButton} onPress={() => {}}>
-              <Text style={styles.loginLinkText}>Показати</Text>
+            <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
+              <Text style={styles.registerButtonText}>Зареєструватися</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.loginLink}
+              onPress={() => {
+                setActiveScreen(0);
+              }}
+            >
+              <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
-            <Text style={styles.registerButtonText}>Зареєструватися</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity style={styles.loginLink} onPress={() => {}}>
-          <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
-        </TouchableOpacity>
+        )}
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 
@@ -71,6 +69,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 16,
     paddingRight: 16,
+    paddingBottom: 45,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     width: '100%',
@@ -173,7 +172,6 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     marginTop: 16,
-    marginBottom: 66,
   },
   loginLinkText: {
     color: '#1B4371',
@@ -181,7 +179,47 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 16,
     lineHeight: 19,
+    textAlign: 'center',
   },
 });
 
 export default RegistrationScreen;
+
+
+{
+  /* <View>
+          <TextInput
+            style={styles.inputLogin}
+            placeholder="Login"
+            inputMode="text"
+          />
+        </View>
+
+        <View>
+          <TextInput
+            style={styles.inputMailPassw}
+            placeholder="Email address"
+            inputMode="email"
+          />
+        </View> */
+}
+
+{
+  /* <View>
+          <TextInput
+            style={styles.inputMailPassw}
+            placeholder="Password"
+            secureTextEntry={!isShowPassword}
+          />
+          <TouchableOpacity
+            style={styles.showButton}
+            onPress={() => {
+              setIsShowPassword(!isShowPassword);
+            }}
+          >
+            <Text style={styles.loginLinkText}>
+              {isShowPassword ? 'Приховати' : 'Показати'}
+            </Text>
+          </TouchableOpacity>
+        </View> */
+}
