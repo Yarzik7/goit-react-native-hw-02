@@ -55,13 +55,13 @@ const App = () => {
         > */}
         {activeScreen === 0 ? (
           <LoginScreen
-            setIsKeyboardShow={showKB}
+            activeScreen={activeScreen}
             isKeyboardShow={isKeyboardShow}
             setActiveScreen={setActiveScreen}
           />
         ) : (
           <RegistrationScreen
-            setIsKeyboardShow={showKB}
+            activeScreen={activeScreen}
             isKeyboardShow={isKeyboardShow}
             setActiveScreen={setActiveScreen}
           />

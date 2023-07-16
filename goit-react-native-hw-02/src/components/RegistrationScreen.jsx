@@ -7,14 +7,14 @@ import {
 } from 'react-native';
 import Avatar from './Avatar';
 import AuthInput from './AuthInput';
+import AuthAction from './AuthAction';
 import { useState } from 'react';
 
 const RegistrationScreen = ({
   isKeyboardShow,
-  setIsKeyboardShow,
+  activeScreen,
   setActiveScreen,
 }) => {
-  const [isShowPassword, setIsShowPassword] = useState(false);
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +22,9 @@ const RegistrationScreen = ({
   return (
     <View style={styles.container}>
       <Avatar isKeyboardShow={isKeyboardShow} />
+
       <Text style={styles.title}>Реєстрація</Text>
+
       <View style={styles.registerForm}>
         <AuthInput
           type={'text'}
@@ -44,21 +46,12 @@ const RegistrationScreen = ({
           placeholder={'Пароль'}
           onChange={setPassword}
         />
-              
+
         {!isKeyboardShow && (
-          <View>
-            <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
-              <Text style={styles.registerButtonText}>Зареєструватися</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.loginLink}
-              onPress={() => {
-                setActiveScreen(0);
-              }}
-            >
-              <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
-            </TouchableOpacity>
-          </View>
+          <AuthAction
+            activeScreen={activeScreen}
+            setActiveScreen={setActiveScreen}
+          />
         )}
       </View>
     </View>
@@ -185,7 +178,6 @@ const styles = StyleSheet.create({
 
 export default RegistrationScreen;
 
-
 {
   /* <View>
           <TextInput
@@ -222,4 +214,22 @@ export default RegistrationScreen;
             </Text>
           </TouchableOpacity>
         </View> */
+}
+
+{
+  /* {!isKeyboardShow && (
+          <View>
+            <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
+              <Text style={styles.registerButtonText}>Зареєструватися</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.loginLink}
+              onPress={() => {
+                setActiveScreen(0);
+              }}
+            >
+              <Text style={styles.loginLinkText}>Вже є акаунт? Увійти</Text>
+            </TouchableOpacity>
+          </View>
+        )} */
 }

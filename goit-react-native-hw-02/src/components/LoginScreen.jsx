@@ -13,11 +13,7 @@ import {
 import addButton from '../assets/add.png';
 import { useState } from 'react';
 
-const LoginScreen = ({
-  isKeyboardShow,
-  setIsKeyboardShow,
-  setActiveScreen,
-}) => {
+const LoginScreen = ({ isKeyboardShow, activeScreen, setActiveScreen }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
 
   return (
@@ -49,8 +45,8 @@ const LoginScreen = ({
               {isShowPassword ? 'Приховати' : 'Показати'}
             </Text>
           </TouchableOpacity>
-              </View>
-              
+        </View>
+
         {!isKeyboardShow && (
           <View>
             <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
