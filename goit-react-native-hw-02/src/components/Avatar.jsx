@@ -10,7 +10,7 @@ import avatar from '../assets/avatar.jpg';
 
 const Avatar = ({ isKeyboardShow }) => {
   return (
-    <View style={styles.pfotoContainer}>
+    <View style={styles.avatarContainer}>
       <Image
         source={isKeyboardShow ? avatar : null}
         resizeMode="cover"
@@ -27,7 +27,7 @@ const Avatar = ({ isKeyboardShow }) => {
 };
 
 const styles = StyleSheet.create({
-  pfotoContainer: {
+  avatarContainer: {
     marginTop: -60,
     height: 120,
     width: 120,
