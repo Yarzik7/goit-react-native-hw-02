@@ -2,20 +2,22 @@ import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const AuthAction = ({ activeScreen, setActiveScreen }) => {
   return (
-    <View>
-      <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
-        <Text style={styles.registerButtonText}>
+    <View style={styles.authActionContainer}>
+      <TouchableOpacity style={styles.authActionButton} onPress={() => {}}>
+        <Text style={styles.authActionButtonText}>
           {activeScreen === 0 ? 'Увійти' : 'Зареєструватися'}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.loginLink}
+        style={styles.link}
         onPress={() => {
           setActiveScreen(activeScreen === 0 ? 1 : 0);
         }}
       >
-        <Text style={styles.loginLinkText}>
-          {activeScreen === 0 ? 'Зареєструватися' : "Вже є акаунт? Увійти"}
+        <Text style={styles.linkText}>
+          {activeScreen === 0
+            ? 'Немає акаунту? Зареєструватися'
+            : 'Вже є акаунт? Увійти'}
         </Text>
       </TouchableOpacity>
     </View>
@@ -23,22 +25,24 @@ const AuthAction = ({ activeScreen, setActiveScreen }) => {
 };
 
 const styles = StyleSheet.create({
-  registerButton: {
+  authActionContainer: {
+    marginTop: 43,
+  },
+  authActionButton: {
     backgroundColor: '#FF6C00',
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
-    marginTop: 43,
   },
-  registerButtonText: {
+  authActionButtonText: {
     color: '#fff',
     fontWeight: '400',
   },
-  loginLink: {
+  link: {
     marginTop: 16,
   },
-  loginLinkText: {
+  linkText: {
     color: '#1B4371',
     fontStyle: 'normal',
     fontWeight: '400',

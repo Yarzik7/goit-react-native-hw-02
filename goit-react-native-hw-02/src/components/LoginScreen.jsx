@@ -1,66 +1,38 @@
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
-  Platform,
-  Keyboard,
-} from 'react-native';
-import addButton from '../assets/add.png';
+import { StyleSheet, View, Text } from 'react-native';
+import AuthInput from './AuthInput';
+import AuthAction from './AuthAction';
 import { useState } from 'react';
 
 const LoginScreen = ({ isKeyboardShow, activeScreen, setActiveScreen }) => {
-  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 111 }}
+    >
       <Text style={styles.title}>Увійти</Text>
 
-      <View style={styles.registerForm}>
-        <View>
-          <TextInput
-            style={styles.inputMailPassw}
-            placeholder="Email address"
-            inputMode="email"
-          />
-        </View>
+      <View style={styles.authForm}>
+        <AuthInput
+          type={'email'}
+          value={email}
+          placeholder={'Адреса електронної пошти'}
+          onChange={setEmail}
+        />
 
-        <View>
-          <TextInput
-            style={styles.inputMailPassw}
-            placeholder="Password"
-            secureTextEntry={!isShowPassword}
-          />
-          <TouchableOpacity
-            style={styles.showButton}
-            onPress={() => {
-              setIsShowPassword(!isShowPassword);
-            }}
-          >
-            <Text style={styles.loginLinkText}>
-              {isShowPassword ? 'Приховати' : 'Показати'}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <AuthInput
+          type={'password'}
+          value={password}
+          placeholder={'Пароль'}
+          onChange={setPassword}
+        />
 
         {!isKeyboardShow && (
-          <View>
-            <TouchableOpacity style={styles.registerButton} onPress={() => {}}>
-              <Text style={styles.registerButtonText}>Увійти</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.loginLink}
-              onPress={() => setActiveScreen(1)}
-            >
-              <Text style={styles.loginLinkText}>
-                Немає акаунту? Зареєструватися
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <AuthAction
+            activeScreen={activeScreen}
+            setActiveScreen={setActiveScreen}
+          />
         )}
       </View>
     </View>
@@ -71,6 +43,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 16,
     paddingRight: 16,
+    paddingBottom: 111,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     width: '100%',
@@ -110,7 +83,7 @@ const styles = StyleSheet.create({
     marginBottom: 33,
     lineHeight: 35,
   },
-  registerForm: {
+  authForm: {
     width: '100%',
     gap: 16,
     backgroundColor: '#FFFFFF',

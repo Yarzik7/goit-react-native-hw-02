@@ -1,31 +1,24 @@
 import {
-  KeyboardAvoidingView,
   StyleSheet,
   View,
-  Text,
-  TextInput,
   TouchableOpacity,
-  ImageBackground,
   Image,
-  Keyboard,
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scrollview';
 import addButton from '../assets/add.png';
 import deleteButton from '../assets/delete.png';
 import avatar from '../assets/avatar.jpg';
-import { useState } from 'react';
 
 const Avatar = ({ isKeyboardShow }) => {
   return (
     <View style={styles.pfotoContainer}>
       <Image
-        source={Keyboard.isVisible() ? avatar : null}
+        source={isKeyboardShow ? avatar : null}
         resizeMode="cover"
         style={styles.avatar}
       />
       <TouchableOpacity style={styles.addButton} activeOpacity={0.5}>
         <Image
-          source={Keyboard.isVisible() ? deleteButton : addButton}
+          source={isKeyboardShow ? deleteButton : addButton}
           style={{ width: '100%', height: '100%' }}
         />
       </TouchableOpacity>

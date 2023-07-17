@@ -9,24 +9,27 @@ import {
 
 const AuthInput = ({ type, placeholder, value, onChange }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
   return (
-    <View>
+    <View style={styles.authInputContainer}>
       <TextInput
         value={value}
-        onChangeText={onChange}
         placeholder={placeholder}
-        inputMode={type}
-        style={styles.input}
+        inputMode={type === 'password' ? 'text' : type}
+        style={[styles.authInput, isInputFocused && styles.authInputFocused]}
+        cursorColor="#FF6C00"
         secureTextEntry={type === 'password' ? !isShowPassword : false}
+        onChangeText={onChange}
+        onFocus={() => setIsInputFocused(true)}
+        onBlur={() => setIsInputFocused(false)}
       />
       {type === 'password' && (
         <TouchableOpacity
-          style={styles.showButton}
-          onPress={() => {
-            setIsShowPassword(!isShowPassword);
-          }}
+          style={styles.showPasswordButton}
+          onPress={() => setIsShowPassword(!isShowPassword)}
         >
-          <Text style={styles.loginLinkText}>
+          <Text style={styles.showPasswordButtonText}>
             {isShowPassword ? 'Приховати' : 'Показати'}
           </Text>
         </TouchableOpacity>
@@ -36,27 +39,31 @@ const AuthInput = ({ type, placeholder, value, onChange }) => {
 };
 
 const styles = StyleSheet.create({
-  input: {
+  authInputContainer: {
+    position: 'relative',
+  },
+  authInput: {
     backgroundColor: '#F6F6F6',
     width: '100%',
     height: 50,
+    paddingLeft: 16,
+    paddingRight: 16,
     borderRadius: 8,
-    padding: 16,
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: 16,
-    position: 'relative',
+    borderWidth: 1,
+    borderColor: '#E8E8E8',
   },
-  showButton: {
-    ...this.loginLink,
+  authInputFocused: {
+    borderColor: '#FF6C00',
+  },
+  showPasswordButton: {
     position: 'absolute',
     top: 16,
     right: 16,
   },
-  loginLink: {
-    marginTop: 16,
-  },
-  loginLinkText: {
+  showPasswordButtonText: {
     color: '#1B4371',
     fontStyle: 'normal',
     fontWeight: '400',
