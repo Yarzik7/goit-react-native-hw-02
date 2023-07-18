@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
-import AuthInput from './AuthInput';
-import AuthAction from './AuthAction';
+import AuthInput from '../components/AuthInput';
+import AuthAction from '../components/AuthAction';
 import { useState } from 'react';
 
 const LoginScreen = ({

@@ -1,20 +1,23 @@
 {
   "name": "goit-react-native-hw-02",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Yarzik7/goit-react-native-hw-02.git"
+  "dependencies": {
+    "expo": "~48.0.18",
+    "expo-dev-client": "~2.2.1",
+    "expo-font": "~11.1.1",
+    "expo-status-bar": "~1.4.4",
+    "react": "18.2.0",
+    "react-native": "0.71.8"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Yarzik7/goit-react-native-hw-02/issues"
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
   },
-  "homepage": "https://github.com/Yarzik7/goit-react-native-hw-02#readme"
+  "private": true
 }

@@ -29,14 +29,6 @@
       "eas": {
         "projectId": "fdef036f-a25c-46db-a246-73091c27b860"
       }
-    },
-    "plugins": [
-      [
-        "expo-updates",
-        {
-          "username": "account-username"
-        }
-      ]
-    ]
+    }
   }
 }

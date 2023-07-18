@@ -8,8 +8,8 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
-import RegistrationScreen from './src/components/RegistrationScreen';
-import LoginScreen from './src/components/LoginScreen';
+import RegistrationScreen from './src/screens/RegistrationScreen';
+import LoginScreen from './src/screens/LoginScreen';
 
 const background = require('./src/assets/background.png');
 const { height } = Dimensions.get('window');
