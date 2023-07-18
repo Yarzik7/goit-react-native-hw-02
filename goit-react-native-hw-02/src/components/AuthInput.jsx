@@ -17,7 +17,6 @@ const AuthInput = ({
 }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
-  console.log(`Focus ${type} `, isInputFocused);
 
   return (
     <View
@@ -38,16 +37,8 @@ const AuthInput = ({
           cursorColor="#FF6C00"
           secureTextEntry={type === 'password' ? !isShowPassword : false}
           onChangeText={onChange}
-          onFocus={() => {
-            {
-              console.log(`onFocus ${type}`);
-              setIsInputFocused(true);
-            }
-          }}
-          onBlur={() => {
-            console.log(`onBlur ${type}`);
-            setIsInputFocused(false);
-          }}
+          onFocus={() => { setIsKeyboardShow(true); setIsInputFocused(true)}}
+          onBlur={() => setIsInputFocused(false)}
         />
         {type === 'password' && (
           <TouchableOpacity

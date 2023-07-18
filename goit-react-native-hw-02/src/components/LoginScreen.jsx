@@ -3,7 +3,12 @@ import AuthInput from './AuthInput';
 import AuthAction from './AuthAction';
 import { useState } from 'react';
 
-const LoginScreen = ({ isKeyboardShow, activeScreen, setActiveScreen }) => {
+const LoginScreen = ({
+  isKeyboardShow,
+  activeScreen,
+  setActiveScreen,
+  setIsKeyboardShow,
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,6 +24,7 @@ const LoginScreen = ({ isKeyboardShow, activeScreen, setActiveScreen }) => {
           value={email}
           placeholder={'Адреса електронної пошти'}
           onChange={setEmail}
+          setIsKeyboardShow={setIsKeyboardShow}
         />
 
         <AuthInput
@@ -26,6 +32,7 @@ const LoginScreen = ({ isKeyboardShow, activeScreen, setActiveScreen }) => {
           value={password}
           placeholder={'Пароль'}
           onChange={setPassword}
+          setIsKeyboardShow={setIsKeyboardShow}
         />
 
         {!isKeyboardShow && (

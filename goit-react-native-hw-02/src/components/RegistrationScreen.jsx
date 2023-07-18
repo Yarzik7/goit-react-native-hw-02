@@ -51,12 +51,12 @@ const RegistrationScreen = ({
           setIsKeyboardShow={setIsKeyboardShow}
         />
 
-        {/* {!isKeyboardShow && ( */}
+        {!isKeyboardShow && (
           <AuthAction
             activeScreen={activeScreen}
             setActiveScreen={setActiveScreen}
           />
-        {/* )} */}
+        )}
       </View>
     </View>
   );
