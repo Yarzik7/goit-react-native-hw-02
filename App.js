@@ -8,6 +8,7 @@ import {
   Platform,
   Dimensions,
 } from 'react-native';
+import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/screens/RegistrationScreen';
 import LoginScreen from './src/screens/LoginScreen';
 
@@ -17,26 +18,28 @@ const { height } = Dimensions.get('window');
 const App = () => {
   const [activeScreen, setActiveScreen] = useState(1);
   const [isKeyboardShow, setIsKeyboardShow] = useState(false);
+  const [fontsLoaded] = useFonts({
+    'Roboto-Regular': require('./src/assets/fonts/Roboto/Roboto-Regular.ttf'),
+    'Roboto-Medium': require('./src/assets/fonts/Roboto/Roboto-Medium.ttf'),
+    'Roboto-Bold': require('./src/assets/fonts/Roboto/Roboto-Bold.ttf'),
+  });
 
   useEffect(() => {
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        setIsKeyboardShow(false);
-        Keyboard.dismiss();
-      }
-    );
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setIsKeyboardShow(false);
+      Keyboard.dismiss();
+    });
 
     return keyboardDidHideListener.remove;
   }, []);
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={background}
-        resizeMode="cover"
-        style={styles.image}
-      >
+      <ImageBackground source={background} resizeMode="cover" style={styles.image}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.keyBoardContainer}

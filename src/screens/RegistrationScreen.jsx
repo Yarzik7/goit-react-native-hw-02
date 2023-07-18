@@ -60,20 +60,21 @@ const RegistrationScreen = ({
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     paddingLeft: 16,
     paddingRight: 16,
     paddingBottom: 45,
-    backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    width: '100%',
+    backgroundColor: '#FFFFFF',
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
   },
   title: {
-    fontWeight: '500',
-    fontSize: 30,
     marginTop: 32,
     marginBottom: 33,
+    fontFamily: 'Roboto-Medium',
+    fontWeight: '500',
+    fontSize: 30,
     lineHeight: 35,
   },
   authForm: {

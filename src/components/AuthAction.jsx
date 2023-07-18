@@ -36,19 +36,18 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   authActionButtonText: {
+    fontFamily: 'Roboto-Regular',
     color: '#fff',
-    fontWeight: '400',
   },
   link: {
     marginTop: 16,
   },
   linkText: {
-    color: '#1B4371',
-    fontStyle: 'normal',
-    fontWeight: '400',
+    fontFamily: 'Roboto-Regular',
     fontSize: 16,
     lineHeight: 19,
     textAlign: 'center',
+    color: '#1B4371',
   },
 });
 
