@@ -5,35 +5,60 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
-const AuthInput = ({ type, placeholder, value, onChange }) => {
+const AuthInput = ({
+  type,
+  placeholder,
+  value,
+  onChange,
+  setIsKeyboardShow,
+}) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
+  console.log(`Focus ${type} `, isInputFocused);
 
   return (
-    <View style={styles.authInputContainer}>
-      <TextInput
-        value={value}
-        placeholder={placeholder}
-        inputMode={type === 'password' ? 'text' : type}
-        style={[styles.authInput, isInputFocused && styles.authInputFocused]}
-        cursorColor="#FF6C00"
-        secureTextEntry={type === 'password' ? !isShowPassword : false}
-        onChangeText={onChange}
-        onFocus={() => setIsInputFocused(true)}
-        onBlur={() => setIsInputFocused(false)}
-      />
-      {type === 'password' && (
-        <TouchableOpacity
-          style={styles.showPasswordButton}
-          onPress={() => setIsShowPassword(!isShowPassword)}
-        >
-          <Text style={styles.showPasswordButtonText}>
-            {isShowPassword ? 'Приховати' : 'Показати'}
-          </Text>
-        </TouchableOpacity>
-      )}
+    <View
+      style={styles.authInputContainer}
+      onPress={() => {
+        console.log('onPressWF');
+        setIsKeyboardShow(true);
+      }}
+    >
+        <TextInput
+          value={value}
+          placeholder={placeholder}
+          inputMode={type === 'password' ? 'text' : type}
+          style={{
+            ...styles.authInput,
+            borderColor: isInputFocused ? '#FF6C00' : '#E8E8E8',
+          }}
+          cursorColor="#FF6C00"
+          secureTextEntry={type === 'password' ? !isShowPassword : false}
+          onChangeText={onChange}
+          onFocus={() => {
+            {
+              console.log(`onFocus ${type}`);
+              setIsInputFocused(true);
+            }
+          }}
+          onBlur={() => {
+            console.log(`onBlur ${type}`);
+            setIsInputFocused(false);
+          }}
+        />
+        {type === 'password' && (
+          <TouchableOpacity
+            style={styles.showPasswordButton}
+            onPress={() => setIsShowPassword(!isShowPassword)}
+          >
+            <Text style={styles.showPasswordButtonText}>
+              {isShowPassword ? 'Приховати' : 'Показати'}
+            </Text>
+          </TouchableOpacity>
+        )}
     </View>
   );
 };

@@ -12,7 +12,7 @@ const Avatar = ({ isKeyboardShow }) => {
   return (
     <View style={styles.avatarContainer}>
       <Image
-        source={isKeyboardShow ? avatar : null}
+        source={isKeyboardShow ? avatar : 0}
         resizeMode="cover"
         style={styles.avatar}
       />

@@ -12,6 +12,7 @@ const RegistrationScreen = ({
   isKeyboardShow,
   activeScreen,
   setActiveScreen,
+  setIsKeyboardShow,
 }) => {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
@@ -31,6 +32,7 @@ const RegistrationScreen = ({
           value={login}
           placeholder={'Логін'}
           onChange={setLogin}
+          setIsKeyboardShow={setIsKeyboardShow}
         />
 
         <AuthInput
@@ -38,6 +40,7 @@ const RegistrationScreen = ({
           value={email}
           placeholder={'Адреса електронної пошти'}
           onChange={setEmail}
+          setIsKeyboardShow={setIsKeyboardShow}
         />
 
         <AuthInput
@@ -45,14 +48,15 @@ const RegistrationScreen = ({
           value={password}
           placeholder={'Пароль'}
           onChange={setPassword}
+          setIsKeyboardShow={setIsKeyboardShow}
         />
 
-        {!isKeyboardShow && (
+        {/* {!isKeyboardShow && ( */}
           <AuthAction
             activeScreen={activeScreen}
             setActiveScreen={setActiveScreen}
           />
-        )}
+        {/* )} */}
       </View>
     </View>
   );
