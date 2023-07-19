@@ -7,6 +7,7 @@ import {
   Keyboard,
   Platform,
   useWindowDimensions,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/screens/RegistrationScreen';
@@ -38,31 +39,33 @@ const App = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={{ height: height * 1.05 }}>
-        <ImageBackground source={background} resizeMode="cover" style={styles.image} />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={{ height: height * 1.05 }}>
+          <ImageBackground source={background} resizeMode="cover" style={styles.image} />
+        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.keyBoardContainer}
+        >
+          {activeScreen === 'login' ? (
+            <LoginScreen
+              activeScreen={activeScreen}
+              isKeyboardShow={isKeyboardShow}
+              setIsKeyboardShow={setIsKeyboardShow}
+              setActiveScreen={setActiveScreen}
+            />
+          ) : (
+            <RegistrationScreen
+              activeScreen={activeScreen}
+              isKeyboardShow={isKeyboardShow}
+              setIsKeyboardShow={setIsKeyboardShow}
+              setActiveScreen={setActiveScreen}
+            />
+          )}
+        </KeyboardAvoidingView>
       </View>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyBoardContainer}
-      >
-        {activeScreen === 'login' ? (
-          <LoginScreen
-            activeScreen={activeScreen}
-            isKeyboardShow={isKeyboardShow}
-            setIsKeyboardShow={setIsKeyboardShow}
-            setActiveScreen={setActiveScreen}
-          />
-        ) : (
-          <RegistrationScreen
-            activeScreen={activeScreen}
-            isKeyboardShow={isKeyboardShow}
-            setIsKeyboardShow={setIsKeyboardShow}
-            setActiveScreen={setActiveScreen}
-          />
-        )}
-      </KeyboardAvoidingView>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
