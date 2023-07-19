@@ -9,11 +9,6 @@ const RegistrationScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, set
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onSubmit = () => {
-    const userRegistrationData = { login, email, password };
-    console.log(userRegistrationData);
-  };
-
   return (
     <View style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 45 }}>
       <Avatar isKeyboardShow={isKeyboardShow} />
@@ -45,7 +40,7 @@ const RegistrationScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, set
           setIsKeyboardShow={setIsKeyboardShow}
         />
 
-        {!isKeyboardShow && <AuthAction onSubmit={onSubmit} activeScreen={activeScreen} setActiveScreen={setActiveScreen} />}
+        {!isKeyboardShow && <AuthAction activeScreen={activeScreen} setActiveScreen={setActiveScreen} />}
       </View>
     </View>
   );
