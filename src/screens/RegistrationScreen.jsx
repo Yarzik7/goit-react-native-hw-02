@@ -4,20 +4,13 @@ import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import { useState } from 'react';
 
-const RegistrationScreen = ({
-  isKeyboardShow,
-  activeScreen,
-  setActiveScreen,
-  setIsKeyboardShow,
-}) => {
+const RegistrationScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, setIsKeyboardShow }) => {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
-    <View
-      style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 45 }}
-    >
+    <View style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 45 }}>
       <Avatar isKeyboardShow={isKeyboardShow} />
 
       <Text style={styles.title}>Реєстрація</Text>
@@ -47,12 +40,7 @@ const RegistrationScreen = ({
           setIsKeyboardShow={setIsKeyboardShow}
         />
 
-        {!isKeyboardShow && (
-          <AuthAction
-            activeScreen={activeScreen}
-            setActiveScreen={setActiveScreen}
-          />
-        )}
+        {!isKeyboardShow && <AuthAction activeScreen={activeScreen} setActiveScreen={setActiveScreen} />}
       </View>
     </View>
   );

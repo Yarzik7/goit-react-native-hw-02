@@ -1,19 +1,7 @@
 import { useState } from 'react';
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
 
-const AuthInput = ({
-  type,
-  placeholder,
-  value,
-  onChange,
-  setIsKeyboardShow,
-}) => {
+const AuthInput = ({ type, placeholder, value, onChange, setIsKeyboardShow }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
@@ -22,7 +10,7 @@ const AuthInput = ({
   const onFocus = () => {
     setIsKeyboardShow(true);
     setIsInputFocused(true);
-  }
+  };
 
   const onBlur = () => setIsInputFocused(false);
 

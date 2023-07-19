@@ -6,17 +6,17 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Platform,
-  Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/screens/RegistrationScreen';
 import LoginScreen from './src/screens/LoginScreen';
 
 const background = require('./src/assets/background.png');
-const { height } = Dimensions.get('window');
 
 const App = () => {
-  const [activeScreen, setActiveScreen] = useState(1);
+  const { height } = useWindowDimensions();
+  const [activeScreen, setActiveScreen] = useState('signUp');
   const [isKeyboardShow, setIsKeyboardShow] = useState(false);
   const [fontsLoaded] = useFonts({
     'Roboto-Regular': require('./src/assets/fonts/Roboto/Roboto-Regular.ttf'),
@@ -39,28 +39,29 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={background} resizeMode="cover" style={styles.image}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.keyBoardContainer}
-        >
-          {activeScreen === 0 ? (
-            <LoginScreen
-              activeScreen={activeScreen}
-              isKeyboardShow={isKeyboardShow}
-              setIsKeyboardShow={setIsKeyboardShow}
-              setActiveScreen={setActiveScreen}
-            />
-          ) : (
-            <RegistrationScreen
-              activeScreen={activeScreen}
-              isKeyboardShow={isKeyboardShow}
-              setIsKeyboardShow={setIsKeyboardShow}
-              setActiveScreen={setActiveScreen}
-            />
-          )}
-        </KeyboardAvoidingView>
-      </ImageBackground>
+      <View style={{ height: height * 1.05 }}>
+        <ImageBackground source={background} resizeMode="cover" style={styles.image} />
+      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyBoardContainer}
+      >
+        {activeScreen === 'login' ? (
+          <LoginScreen
+            activeScreen={activeScreen}
+            isKeyboardShow={isKeyboardShow}
+            setIsKeyboardShow={setIsKeyboardShow}
+            setActiveScreen={setActiveScreen}
+          />
+        ) : (
+          <RegistrationScreen
+            activeScreen={activeScreen}
+            isKeyboardShow={isKeyboardShow}
+            setIsKeyboardShow={setIsKeyboardShow}
+            setActiveScreen={setActiveScreen}
+          />
+        )}
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -70,12 +71,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   keyBoardContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
     justifyContent: 'flex-end',
   },
   image: {
-    flex: 1,
-    height,
-    justifyContent: 'flex-end',
+    height: '100%',
   },
 });
 

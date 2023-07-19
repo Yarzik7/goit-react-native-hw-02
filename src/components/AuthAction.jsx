@@ -1,23 +1,18 @@
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const AuthAction = ({ activeScreen, setActiveScreen }) => {
+  const navToAuthScreen = () => setActiveScreen(activeScreen === 'login' ? 'signUp' : 'login');
+
   return (
     <View style={styles.authActionContainer}>
-      <TouchableOpacity style={styles.authActionButton} onPress={() => {}}>
+      <TouchableOpacity style={styles.authActionButton}>
         <Text style={styles.authActionButtonText}>
-          {activeScreen === 0 ? 'Увійти' : 'Зареєструватися'}
+          {activeScreen === 'login' ? 'Увійти' : 'Зареєструватися'}
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.link}
-        onPress={() => {
-          setActiveScreen(activeScreen === 0 ? 1 : 0);
-        }}
-      >
+      <TouchableOpacity style={styles.link} onPress={navToAuthScreen}>
         <Text style={styles.linkText}>
-          {activeScreen === 0
-            ? 'Немає акаунту? Зареєструватися'
-            : 'Вже є акаунт? Увійти'}
+          {activeScreen === 'login' ? 'Немає акаунту? Зареєструватися' : 'Вже є акаунт? Увійти'}
         </Text>
       </TouchableOpacity>
     </View>

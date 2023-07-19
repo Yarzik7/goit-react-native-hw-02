@@ -3,19 +3,12 @@ import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import { useState } from 'react';
 
-const LoginScreen = ({
-  isKeyboardShow,
-  activeScreen,
-  setActiveScreen,
-  setIsKeyboardShow,
-}) => {
+const LoginScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, setIsKeyboardShow }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
-    <View
-      style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 111 }}
-    >
+    <View style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 111 }}>
       <Text style={styles.title}>Увійти</Text>
 
       <View style={styles.authForm}>
@@ -35,12 +28,7 @@ const LoginScreen = ({
           setIsKeyboardShow={setIsKeyboardShow}
         />
 
-        {!isKeyboardShow && (
-          <AuthAction
-            activeScreen={activeScreen}
-            setActiveScreen={setActiveScreen}
-          />
-        )}
+        {!isKeyboardShow && <AuthAction activeScreen={activeScreen} setActiveScreen={setActiveScreen} />}
       </View>
     </View>
   );

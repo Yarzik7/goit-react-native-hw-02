@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   actionImage: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
 });
 
