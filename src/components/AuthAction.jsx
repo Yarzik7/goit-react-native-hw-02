@@ -12,7 +12,13 @@ const AuthAction = ({ activeScreen, setActiveScreen }) => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={navToAuthScreen}>
         <Text style={styles.linkText}>
-          {activeScreen === 'login' ? 'Немає акаунту? Зареєструватися' : 'Вже є акаунт? Увійти'}
+          {activeScreen === 'login' ? (
+            <>
+              Немає акаунту? <Text style={styles.signUpLink}>Зареєструватися</Text>
+            </>
+          ) : (
+            'Вже є акаунт? Увійти'
+          )}
         </Text>
       </TouchableOpacity>
     </View>
@@ -35,14 +41,17 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   link: {
+    alignSelf: 'center',
     marginTop: 16,
   },
   linkText: {
     fontFamily: 'Roboto-Regular',
     fontSize: 16,
     lineHeight: 19,
-    textAlign: 'center',
     color: '#1B4371',
+  },
+  signUpLink: {
+    textDecorationLine: 'underline',
   },
 });
 

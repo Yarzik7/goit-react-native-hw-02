@@ -10,7 +10,7 @@ const RegistrationScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, set
   const [password, setPassword] = useState('');
 
   return (
-    <View style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 45 }}>
+    <>
       <Avatar isKeyboardShow={isKeyboardShow} />
 
       <Text style={styles.title}>Реєстрація</Text>
@@ -39,27 +39,15 @@ const RegistrationScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, set
           onChange={setPassword}
           setIsKeyboardShow={setIsKeyboardShow}
         />
-
-        {!isKeyboardShow && <AuthAction activeScreen={activeScreen} setActiveScreen={setActiveScreen} />}
+        <AuthAction activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
       </View>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingBottom: 45,
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderTopRightRadius: 25,
-    borderTopLeftRadius: 25,
-  },
   title: {
-    marginTop: 32,
-    marginBottom: 33,
+    marginVertical: 32,
     fontFamily: 'Roboto-Medium',
     fontWeight: '500',
     fontSize: 30,
