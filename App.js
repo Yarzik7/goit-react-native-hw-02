@@ -11,6 +11,7 @@ import {
 import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/screens/RegistrationScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import colors from './src/constants/colors';
 
 const backgroundImage = require('./src/assets/background.jpg');
 
@@ -27,7 +28,7 @@ const App = () => {
     return null;
   }
 
-  const fullHeight = Math.ceil(height + StatusBar.currentHeight ?? 1);
+  const fullHeight = Math.ceil(height + StatusBar.currentHeight ?? 0);
 
   return (
     <KeyboardAvoidingView
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 45,
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.white,
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
   },

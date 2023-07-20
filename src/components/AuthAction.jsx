@@ -1,4 +1,6 @@
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import color from '../constants/colors';
+const { linkColor, accentColor, white } = color;
 
 const AuthAction = ({ activeScreen, setActiveScreen }) => {
   const navToAuthScreen = () => setActiveScreen(activeScreen === 'login' ? 'signUp' : 'login');
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
     marginTop: 43,
   },
   authActionButton: {
-    backgroundColor: '#FF6C00',
+    backgroundColor: accentColor,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
@@ -38,7 +40,8 @@ const styles = StyleSheet.create({
   },
   authActionButtonText: {
     fontFamily: 'Roboto-Regular',
-    color: '#fff',
+    fontSize: 16,
+    color: white,
   },
   link: {
     alignSelf: 'center',
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
     fontSize: 16,
     lineHeight: 19,
-    color: '#1B4371',
+    color: linkColor,
   },
   signUpLink: {
     textDecorationLine: 'underline',

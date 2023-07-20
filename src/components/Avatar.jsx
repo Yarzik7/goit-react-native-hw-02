@@ -1,7 +1,9 @@
-import { StyleSheet, View, TouchableOpacity, Image, ToastAndroid } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
+import color from '../constants/colors';
+const { accentColor, white, backgroundColor, borderColor, shadowColor } = color;
 
 const Avatar = () => {
   const [avatarPath, setAvatarPath] = useState(null);
@@ -22,13 +24,7 @@ const Avatar = () => {
         setAvatarPath(result.assets[0].uri);
       }
     } catch (error) {
-      ToastAndroid.showWithGravityAndOffset(
-        `Error: ${error}`,
-        ToastAndroid.LONG,
-        ToastAndroid.BOTTOM,
-        25,
-        50
-      );
+      console.log(`Error: ${error}`);
     }
   };
 
@@ -39,7 +35,7 @@ const Avatar = () => {
         style={[styles.actionImageButton, avatarPath && styles.deleteImageButton]}
         onPress={onAvatarAction}
       >
-        <AntDesign name="pluscircleo" size={25} color={avatarPath ? '#E8E8E8' : '#FF6C00'} />
+        <AntDesign name="pluscircleo" size={25} color={avatarPath ? borderColor : accentColor} />
       </TouchableOpacity>
     </View>
   );
@@ -51,7 +47,7 @@ const styles = StyleSheet.create({
     marginTop: -60,
     width: 120,
     height: 120,
-    backgroundColor: '#F6F6F6',
+    backgroundColor,
     borderRadius: 16,
   },
   avatar: {
@@ -70,11 +66,11 @@ const styles = StyleSheet.create({
   },
   deleteImageButton: {
     transform: [{ rotate: '45deg' }],
-    backgroundColor: '#FFFFFF',
+    backgroundColor: white,
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 4,
     shadowOpacity: 1,
-    shadowColor: 'rgba(0, 0, 0, 0.7)',
+    shadowColor,
     elevation: 7,
   },
 });

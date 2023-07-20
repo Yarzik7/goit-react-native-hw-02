@@ -2,6 +2,8 @@ import { StyleSheet, View, Text } from 'react-native';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import { useState } from 'react';
+import color from '../constants/colors';
+const { secondaryTextColor } = color;
 
 const LoginScreen = ({ activeScreen, setActiveScreen }) => {
   const [email, setEmail] = useState('');
@@ -33,11 +35,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 30,
     lineHeight: 35,
+    color: secondaryTextColor
   },
   authForm: {
     width: '100%',
     gap: 16,
-    backgroundColor: '#FFFFFF',
   },
 });
 
