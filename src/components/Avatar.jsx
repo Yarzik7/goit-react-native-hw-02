@@ -1,13 +1,10 @@
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign } from '@expo/vector-icons';
-import { useState } from 'react';
 import color from '../constants/colors';
 const { accentColor, white, backgroundColor, borderColor, shadowColor } = color;
 
-const Avatar = () => {
-  const [avatarPath, setAvatarPath] = useState(null);
-
+const Avatar = ({ avatarPath, setAvatarPath }) => {
   const onAvatarAction = async () => {
     if (avatarPath) {
       setAvatarPath(null);

@@ -5,8 +5,8 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
-  useWindowDimensions,
-  StatusBar,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/screens/RegistrationScreen';
@@ -16,7 +16,6 @@ import colors from './src/constants/colors';
 const backgroundImage = require('./src/assets/background.jpg');
 
 const App = () => {
-  const { height } = useWindowDimensions();
   const [activeScreen, setActiveScreen] = useState('signUp');
   const [fontsLoaded] = useFonts({
     'Roboto-Regular': require('./src/assets/fonts/Roboto/Roboto-Regular.ttf'),
@@ -28,37 +27,42 @@ const App = () => {
     return null;
   }
 
-  const fullHeight = Math.ceil(height + StatusBar.currentHeight ?? 0);
-
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={activeScreen === 'login' ? -208 : -142}
-    >
-      <ImageBackground source={backgroundImage} resizeMode="cover" style={{ height: fullHeight }} />
-
-      <View style={[styles.authContainer, activeScreen === 'login' && styles.paddingLogin]}>
-        {activeScreen === 'login' ? (
-          <LoginScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
-        ) : (
-          <RegistrationScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
-        )}
-      </View>
-    </KeyboardAvoidingView>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={activeScreen === 'login' ? -208 : -142}
+        style={styles.container}
+      >
+        <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundView}>
+          <View style={[styles.authContainer, activeScreen === 'login' && styles.paddingLogin]}>
+            {activeScreen === 'login' ? (
+              <LoginScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+            ) : (
+              <RegistrationScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+            )}
+          </View>
+        </ImageBackground>
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   authContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
     paddingHorizontal: 16,
     paddingBottom: 45,
     alignItems: 'center',
     backgroundColor: colors.white,
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
+  },
+  backgroundView: {
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   paddingLogin: {
     paddingBottom: 111,

@@ -9,6 +9,23 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+const reset = () => {
+  setEmail('');
+  setPassword('');
+};
+
+  const onSubmit = () => {
+    if (!email || !password) {
+      console.log('Заповніть будь ласка всі поля!');
+      return;
+    }
+    const userData = { email, password };
+    console.log(userData);
+    reset();
+  };
+
+  
+
   return (
     <>
       <Text style={styles.title}>Увійти</Text>
@@ -22,7 +39,7 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
         />
 
         <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
-        <AuthAction activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+        <AuthAction onSubmit={onSubmit} activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
       </View>
     </>
   );
@@ -35,7 +52,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 30,
     lineHeight: 35,
-    color: secondaryTextColor
+    color: secondaryTextColor,
   },
   authForm: {
     width: '100%',
