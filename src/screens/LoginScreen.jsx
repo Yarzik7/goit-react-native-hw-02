@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text } from 'react-native';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import color from '../constants/colors';
 const { secondaryTextColor } = color;
@@ -8,6 +9,7 @@ const { secondaryTextColor } = color;
 const LoginScreen = ({ activeScreen, setActiveScreen }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
 
 const reset = () => {
   setEmail('');
@@ -22,6 +24,7 @@ const reset = () => {
     const userData = { email, password };
     console.log(userData);
     reset();
+    navigation.navigate('Posts', userData);
   };
 
   
@@ -39,7 +42,7 @@ const reset = () => {
         />
 
         <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
-        <AuthAction onSubmit={onSubmit} activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+        <AuthAction onSubmit={onSubmit} activeAuthScreen="Login" setActiveScreen={setActiveScreen} />
       </View>
     </>
   );

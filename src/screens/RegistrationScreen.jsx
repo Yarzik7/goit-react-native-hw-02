@@ -1,4 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import Avatar from '../components/Avatar';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
@@ -11,6 +13,7 @@ const RegistrationScreen = ({ activeScreen, setActiveScreen }) => {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation();
 
   const reset = () => {
     setLogin('');
@@ -25,8 +28,8 @@ const RegistrationScreen = ({ activeScreen, setActiveScreen }) => {
       return;
     }
     const userData = { login, email, password, avatarPath };
-    console.log(userData);
     reset();
+    navigation.navigate('Posts', userData);
   };
 
   return (
@@ -46,7 +49,7 @@ const RegistrationScreen = ({ activeScreen, setActiveScreen }) => {
         />
 
         <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
-        <AuthAction onSubmit={onSubmit} activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+        <AuthAction onSubmit={onSubmit} activeAuthScreen="Registration" setActiveScreen={setActiveScreen} />
       </View>
     </>
   );

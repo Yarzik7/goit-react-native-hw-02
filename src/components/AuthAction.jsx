@@ -1,20 +1,23 @@
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import color from '../constants/colors';
 const { linkColor, accentColor, white } = color;
 
-const AuthAction = ({ activeScreen, setActiveScreen, onSubmit }) => {
-  const navToAuthScreen = () => setActiveScreen(activeScreen === 'login' ? 'signUp' : 'login');
+const AuthAction = ({ activeAuthScreen, setActiveScreen, onSubmit }) => {
+  const navigation = useNavigation();
+   const navToAuthScreen = () => navigation.navigate(activeAuthScreen === 'Login' ? 'Registration' : 'Login');
+  // const navToAuthScreen = () => setActiveScreen(activeScreen === 'login' ? 'signUp' : 'login');
 
   return (
     <View style={styles.authActionContainer}>
       <TouchableOpacity style={styles.authActionButton} onPress={onSubmit}>
         <Text style={styles.authActionButtonText}>
-          {activeScreen === 'login' ? 'Увійти' : 'Зареєструватися'}
+          {activeAuthScreen === 'Login' ? 'Увійти' : 'Зареєструватися'}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={navToAuthScreen}>
         <Text style={styles.linkText}>
-          {activeScreen === 'login' ? (
+          {activeAuthScreen === 'Login' ? (
             <>
               Немає акаунту? <Text style={styles.signUpLink}>Зареєструватися</Text>
             </>
