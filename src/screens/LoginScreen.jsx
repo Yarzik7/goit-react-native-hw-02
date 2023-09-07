@@ -24,7 +24,7 @@ const reset = () => {
     const userData = { email, password };
     console.log(userData);
     reset();
-    navigation.navigate('Posts', userData);
+    navigation.navigate('BottomTabs', { screen: 'Posts', params: userData });
   };
 
   

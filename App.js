@@ -15,6 +15,7 @@ import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/screens/RegistrationScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import MainNavigator from './src/navigators/MainNavigator';
+// import BottomNavigator from 'navigators/BottomNavigator';
 import colors from './src/constants/colors';
 
 const backgroundImage = require('./src/assets/background.jpg');

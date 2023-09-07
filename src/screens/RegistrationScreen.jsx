@@ -29,7 +29,7 @@ const RegistrationScreen = ({ activeScreen, setActiveScreen }) => {
     }
     const userData = { login, email, password, avatarPath };
     reset();
-    navigation.navigate('Posts', userData);
+    navigation.navigate('BottomTabs', { screen: 'Posts', params: userData });
   };
 
   return (
