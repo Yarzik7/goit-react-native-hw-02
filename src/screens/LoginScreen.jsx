@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text } from 'react-native';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
+import Layout from '../components/Layout';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import color from '../constants/colors';
@@ -11,10 +12,10 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
-const reset = () => {
-  setEmail('');
-  setPassword('');
-};
+  const reset = () => {
+    setEmail('');
+    setPassword('');
+  };
 
   const onSubmit = () => {
     if (!email || !password) {
@@ -27,10 +28,8 @@ const reset = () => {
     navigation.navigate('BottomTabs', { screen: 'Posts', params: userData });
   };
 
-  
-
   return (
-    <>
+    <Layout>
       <Text style={styles.title}>Увійти</Text>
 
       <View style={styles.authForm}>
@@ -44,7 +43,7 @@ const reset = () => {
         <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
         <AuthAction onSubmit={onSubmit} activeAuthScreen="Login" setActiveScreen={setActiveScreen} />
       </View>
-    </>
+    </Layout>
   );
 };
 

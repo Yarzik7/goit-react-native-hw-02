@@ -41,6 +41,7 @@ const bottomNavigatorOptions = ({ route }) => ({
     {
       display: 'flex',
       height: 71,
+      // backgroundColor: 'transparent',
     },
     null,
   ],
@@ -51,7 +52,7 @@ const bottomNavigatorOptions = ({ route }) => ({
     backgroundColor: '#FFF',
     borderBottomColor: '#e8e8e8',
     borderBottomWidth: 1,
-    height: 44,
+    height: 88,
   },
 });
 

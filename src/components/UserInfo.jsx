@@ -1,8 +1,8 @@
 import { View, Image, Text, StyleSheet } from 'react-native';
 import colors from '../constants/colors';
-const { secondaryTextColor, emailColor } = colors;
+const { secondaryTextColor, emailColor, backgroundColor } = colors;
 
-const UserInfo = ({ login, email, avatarPath }) => {
+const UserInfo = ({ login='Name', email='example@email.com', avatarPath }) => {
   return (
     <View style={styles.infoContainer}>
       <Image source={{ uri: avatarPath }} resizeMode="cover" style={styles.avatar} />
@@ -14,8 +14,6 @@ const UserInfo = ({ login, email, avatarPath }) => {
   );
 };
 
-console.log('UserIF', StyleSheet);
-
 const styles = StyleSheet.create({
   infoContainer: {
     flexDirection: 'row',
@@ -26,7 +24,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 16,
-    backgroundColor: '#000',
+    backgroundColor,
   },
   loginText: {
     fontFamily: 'Roboto-Bold',
