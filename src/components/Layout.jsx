@@ -15,7 +15,7 @@ const backgroundImage = require('../assets/background.jpg');
 
 const authScreens = ['Login', 'Registration'];
 
-const Layout = ({ children }) => {
+const Layout = ({ contentContainerStyles = [], children }) => {
   const { name: screenName } = useRoute();
   return (
     // <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
       keyboardVerticalOffset={screenName === 'Login' ? -208 : -142}
     >
       <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundView}>
-        <View style={[styles.authContainer, screenName === 'Login' && styles.paddingLogin]}>
+        <View style={[styles.authContainer, ...contentContainerStyles]}>
           {/* <Text style={{backgroundColor: 'green'}}>Text</Text> */}
           {children}
         </View>

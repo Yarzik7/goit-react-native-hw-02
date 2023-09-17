@@ -29,7 +29,7 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
   };
 
   return (
-    <Layout>
+    <Layout contentContainerStyles={[styles.paddingLogin]}>
       <Text style={styles.title}>Увійти</Text>
 
       <View style={styles.authForm}>
@@ -59,6 +59,9 @@ const styles = StyleSheet.create({
   authForm: {
     width: '100%',
     gap: 16,
+  },
+  paddingLogin: {
+    paddingBottom: 111,
   },
 });
 

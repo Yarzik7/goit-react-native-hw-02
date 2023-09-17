@@ -34,7 +34,7 @@ const RegistrationScreen = ({ activeScreen, setActiveScreen }) => {
   };
 
   return (
-    <Layout>
+    <Layout contentContainerStyles={[styles.paddingRegistration]}>
       <Avatar avatarPath={avatarPath} setAvatarPath={setAvatarPath} />
 
       <Text style={styles.title}>Реєстрація</Text>
@@ -68,6 +68,9 @@ const styles = StyleSheet.create({
   authForm: {
     width: '100%',
     gap: 16,
+  },
+  paddingRegistration: {
+    paddingBottom: 45,
   },
 });
 
