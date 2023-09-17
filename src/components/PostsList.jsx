@@ -7,7 +7,6 @@ const { white } = colors;
 
 const PostsList = () => {
   return (
-    // <View style={styles.postListContainer}>
       <FlatList
         data={posts}
         renderItem={({ item }) => <Post postInfo={item} />}
@@ -15,7 +14,6 @@ const PostsList = () => {
         contentContainerStyle={styles.postList}
         style={styles.postListContainer}
       />
-    // </View>
   );
 };
 

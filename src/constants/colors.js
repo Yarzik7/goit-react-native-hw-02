@@ -9,6 +9,7 @@ const colors = {
   borderColor: '#E8E8E8',
   shadowColor: 'rgba(0, 0, 0, 0.7)',
   emailColor: 'rgba(33, 33, 33, 0.8)',
+  cameraBackgroundColor: 'rgba(255, 255, 255, 0.30)',
 };
 
 export default colors;

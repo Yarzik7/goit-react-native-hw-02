@@ -41,7 +41,6 @@ const bottomNavigatorOptions = ({ route }) => ({
     {
       display: 'flex',
       height: 71,
-      // backgroundColor: 'transparent',
     },
     null,
   ],

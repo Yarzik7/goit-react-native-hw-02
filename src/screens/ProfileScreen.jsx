@@ -16,13 +16,6 @@ const ProfileScreen = () => {
       <LogoutButton style={styles.logoutButton} />
       <Text style={styles.title}>Name</Text>
       <PostsList />
-
-      {/* <FlatList
-          data={posts}
-          renderItem={({ item }) => <Post postInfo={item} />}
-          keyExtractor={item => item.id}
-          contentContainerStyle={styles.postList}
-        /> */}
     </Layout>
   );
 };
@@ -44,10 +37,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 22,
     right: 16,
-  },
-  postList: {
-    gap: 34,
-    // paddingBottom: 91,
   },
 });
 
