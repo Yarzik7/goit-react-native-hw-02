@@ -12,12 +12,8 @@ const {
   primaryTextColor,
 } = color;
 
-const PostImage = ({ avatarPath = null, setAvatarPath = () => {} }) => {
-  const onAvatarAction = async () => {
-    if (avatarPath) {
-      setAvatarPath(null);
-      return;
-    }
+const PostImage = ({ imagePath = null, setImagePath = () => {} }) => {
+  const onImageAction = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -26,7 +22,7 @@ const PostImage = ({ avatarPath = null, setAvatarPath = () => {} }) => {
       });
 
       if (!result.canceled) {
-        setAvatarPath(result.assets[0].uri);
+        setImagePath(result.assets[0].uri);
       }
     } catch (error) {
       console.log(`Error: ${error}`);
@@ -35,15 +31,20 @@ const PostImage = ({ avatarPath = null, setAvatarPath = () => {} }) => {
 
   return (
     <View style={styles.postImageContainer}>
-      <ImageBackground source={{ uri: avatarPath }} resizeMode="cover" style={styles.postImage}>
+      <ImageBackground
+        source={{ uri: imagePath }}
+        resizeMode="cover"
+        imageStyle={styles.postImage}
+        style={styles.postImageView}
+      >
         <TouchableOpacity
-          style={[styles.actionImageButton, avatarPath && styles.editImageButton]}
-          onPress={onAvatarAction}
+          style={[styles.actionImageButton, imagePath && styles.editImageButton]}
+          onPress={onImageAction}
         >
-          <FontAwesome name="camera" size={24} color={avatarPath ? white : primaryTextColor} />
+          <FontAwesome name="camera" size={24} color={imagePath ? white : primaryTextColor} />
         </TouchableOpacity>
       </ImageBackground>
-      <Text style={styles.imageActionText}>{avatarPath ? 'Редагувати фото' : 'Завантажте фото'}</Text>
+      <Text style={styles.imageActionText}>{imagePath ? 'Редагувати фото' : 'Завантажте фото'}</Text>
     </View>
   );
 };
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   postImage: {
+    borderRadius: 8,
+  },
+  postImageView: {
     width: '100%',
     backgroundColor,
     height: 240,

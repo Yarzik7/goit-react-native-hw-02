@@ -7,12 +7,14 @@ import color from '../constants/colors';
 import posts from '../data/postsData';
 import Post from '../components/Post';
 import { View } from 'react-native';
+import { useState } from 'react';
 const { secondaryTextColor } = color;
 
 const ProfileScreen = () => {
+  const [avatarPath, setAvatarPath] = useState(null);
   return (
     <Layout>
-      <Avatar avatarPath={null} setAvatarPath={() => {}} />
+      <Avatar avatarPath={avatarPath} setAvatarPath={setAvatarPath} />
       <LogoutButton style={styles.logoutButton} />
       <Text style={styles.title}>Name</Text>
       <PostsList />

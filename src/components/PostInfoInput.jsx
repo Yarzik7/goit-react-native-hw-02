@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-nativ
 import color from '../constants/colors';
 const { linkColor, accentColor, white, backgroundColor, borderColor, secondaryTextColor } = color;
 
-const PostInfoInput = ({ Icon, placeholder, value = '', onChange = () => { } }) => {
+const PostInfoInput = ({ Icon, placeholder, value, onChange = () => {} }) => {
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const onFocus = () => setIsInputFocused(true);
@@ -17,7 +17,7 @@ const PostInfoInput = ({ Icon, placeholder, value = '', onChange = () => { } }) 
         placeholder={placeholder}
         style={[
           styles.postInfoInput,
-          isInputFocused && styles.authInputFocused,
+          isInputFocused && styles.postInputFocused,
           Icon && styles.inputLeftPadding,
         ]}
         cursorColor={accentColor}
@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
   inputLeftPadding: {
     paddingLeft: 28,
   },
-  authInputFocused: {
+  postInputFocused: {
     backgroundColor: white,
-    borderColor: accentColor,
+    borderBottomColor: accentColor,
   },
 });
 

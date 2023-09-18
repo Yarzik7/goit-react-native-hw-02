@@ -1,10 +1,14 @@
 import { Feather } from '@expo/vector-icons';
 import color from '../constants/colors';
+import { BlurView } from 'expo-blur';
+import { StyleSheet, View } from 'react-native';
 const { accentColor, emailColor, white } = color;
 
 const bottomNavigatorOptions = ({ route }) => ({
   tabBarIcon: ({ focused, color, size }) => {
     let iconName;
+
+    console.log(`${focused} ${color} ${size}`);
 
     switch (route.name) {
       case 'Posts':
@@ -39,8 +43,8 @@ const bottomNavigatorOptions = ({ route }) => ({
   },
   tabBarStyle: [
     {
-      display: 'flex',
       height: 71,
+      paddingHorizontal: '20%',
     },
     null,
   ],

@@ -1,19 +1,17 @@
-import { AntDesign, Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 const ArrowButton = () => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={navigation.goBack}>
       <AntDesign name="arrowleft" size={24} style={styles.iconArrow} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  iconLogout: {
-    right: 10,
-    color: '#BDBDBD',
-  },
   iconArrow: {
     color: '#21212180',
     left: 16,
