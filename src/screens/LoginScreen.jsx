@@ -1,15 +1,15 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Title from '../components/Title';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import Layout from '../components/Layout';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import color from '../constants/colors';
-const { secondaryTextColor } = color;
 
-const LoginScreen = ({ activeScreen, setActiveScreen }) => {
+const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const navigation = useNavigation();
 
   const reset = () => {
@@ -30,7 +30,7 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
 
   return (
     <Layout contentContainerStyles={[styles.paddingLogin]}>
-      <Text style={styles.title}>Увійти</Text>
+      <Title title="Увійти" />
 
       <View style={styles.authForm}>
         <AuthInput
@@ -41,21 +41,13 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
         />
 
         <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
-        <AuthAction onSubmit={onSubmit} activeAuthScreen="Login" setActiveScreen={setActiveScreen} />
+        <AuthAction onSubmit={onSubmit} activeAuthScreen="Login" />
       </View>
     </Layout>
   );
 };
 
 const styles = StyleSheet.create({
-  title: {
-    marginVertical: 32,
-    fontFamily: 'Roboto-Medium',
-    fontWeight: '500',
-    fontSize: 30,
-    lineHeight: 35,
-    color: secondaryTextColor,
-  },
   authForm: {
     width: '100%',
     gap: 16,

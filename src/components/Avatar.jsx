@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import color from '../constants/colors';
 const { accentColor, white, backgroundColor, borderColor, shadowColor } = color;
 
-const Avatar = ({ avatarPath=null, setAvatarPath=()=>{} }) => {
+const Avatar = ({ avatarPath = null, setAvatarPath }) => {
   const onAvatarAction = async () => {
     if (avatarPath) {
       setAvatarPath(null);
@@ -40,7 +40,6 @@ const Avatar = ({ avatarPath=null, setAvatarPath=()=>{} }) => {
 
 const styles = StyleSheet.create({
   avatarContainer: {
-    // position: 'relative',
     marginTop: -60,
     width: 120,
     height: 120,

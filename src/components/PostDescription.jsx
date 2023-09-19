@@ -1,6 +1,7 @@
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+
 import color from '../constants/colors';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
 
@@ -41,7 +42,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   descriptionText: {
+    fontFamily: 'Roboto-Regular',
     fontSize: 16,
+    color: secondaryTextColor,
   },
   locationText: {
     textDecorationLine: 'underline',

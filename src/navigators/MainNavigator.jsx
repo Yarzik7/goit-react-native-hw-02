@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import RegistrationScreen from '../screens/RegistrationScreen';
 import LoginScreen from '../screens/LoginScreen';
-import PostsScreen from '../screens/PostsScreen';
 import BottomNavigator from './BottomNavigator';
 
 const MainStack = createStackNavigator();

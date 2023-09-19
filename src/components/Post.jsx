@@ -1,14 +1,13 @@
 import { Image, Text, View, StyleSheet } from 'react-native';
-import PostProperty from './PostProperty';
 import PostDescription from './PostDescription';
-const backgroundImage = require('../assets/background.jpg');
+
 import color from '../constants/colors';
 const { secondaryTextColor, backgroundColor } = color;
 
-const Post = ({ postInfo: { img, label, commentsCount, likesCount, location } }) => {
+const Post = ({ postInfo: { img = null, label = 'Post name', commentsCount, likesCount, location } }) => {
   return (
     <View style={styles.postContainer}>
-      <Image source={{uri: img}} resizeMode="cover" style={styles.postImage} />
+      <Image source={{ uri: img }} resizeMode="cover" style={styles.postImage} />
       <Text style={styles.postCaption}>{label}</Text>
       <PostDescription commentsCount={commentsCount} likesCount={likesCount} location={location} />
     </View>
@@ -30,7 +29,7 @@ const styles = StyleSheet.create({
   postCaption: {
     color: secondaryTextColor,
     fontWeight: 500,
-    fontFamily: 'Roboto',
+    fontFamily: 'Roboto-Medium',
   },
 });
 

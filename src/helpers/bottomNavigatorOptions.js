@@ -1,61 +1,49 @@
 import { Feather } from '@expo/vector-icons';
+import { StyleSheet } from 'react-native';
 import color from '../constants/colors';
-import { BlurView } from 'expo-blur';
-import { StyleSheet, View } from 'react-native';
-const { accentColor, emailColor, white } = color;
+const { accentColor, emailColor, white, borderColor } = color;
 
 const bottomNavigatorOptions = ({ route }) => ({
-  tabBarIcon: ({ focused, color, size }) => {
-    let iconName;
+  tabBarIcon: ({ focused, color }) => {
+    const screens = {
+      Posts: 'grid',
+      CreatePosts: 'plus',
+      Profile: 'user',
+    };
 
-    console.log(`${focused} ${color} ${size}`);
-
-    switch (route.name) {
-      case 'Posts':
-        iconName = 'grid';
-        break;
-      case 'CreatePosts':
-        iconName = 'plus';
-        break;
-      case 'Profile':
-        iconName = 'user';
-        break;
-      default:
-        iconName = focused ? 'ios-information-circle' : 'ios-information-circle-outline';
-    }
+    const iconName = screens[route.name] ?? 'x-circle';
 
     return (
-      <Feather
-        name={iconName}
-        size={24}
-        color={color}
-        style={[
-          { textAlign: 'center', textAlignVertical: 'center' },
-          focused && {
-            backgroundColor: accentColor,
-            height: 40,
-            width: 70,
-            borderRadius: 20,
-          },
-        ]}
-      />
+      <Feather name={iconName} size={24} color={color} style={[styles.tab, focused && styles.activeTab]} />
     );
   },
-  tabBarStyle: [
-    {
-      height: 71,
-      paddingHorizontal: '20%',
-    },
-    null,
-  ],
+  tabBarStyle: [styles.tabBar, null],
   tabBarActiveTintColor: white,
   tabBarInactiveTintColor: emailColor,
   tabBarShowLabel: false,
-  headerStyle: {
-    backgroundColor: '#FFF',
-    borderBottomColor: '#e8e8e8',
+  headerStyle: styles.header,
+});
+
+const styles = StyleSheet.create({
+  tabBar: {
+    height: 71,
+    paddingHorizontal: '20%',
+  },
+  header: {
+    backgroundColor: white,
+    borderBottomColor: borderColor,
     borderBottomWidth: 1,
     height: 88,
+  },
+  tab: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+  activeTab: {
+    backgroundColor: accentColor,
+    height: 40,
+    width: 70,
+    borderRadius: 20,
   },
 });
 

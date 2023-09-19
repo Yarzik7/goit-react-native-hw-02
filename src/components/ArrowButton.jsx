@@ -1,20 +1,23 @@
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+
+import colors from '../constants/colors';
+const { emailColor } = colors;
 
 const ArrowButton = () => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={navigation.goBack}>
-      <AntDesign name="arrowleft" size={24} style={styles.iconArrow} />
+      <AntDesign name="arrowleft" size={24} style={styles.arrowIcon} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  iconArrow: {
-    color: '#21212180',
+  arrowIcon: {
     left: 16,
+    color: emailColor,
   },
 });
 

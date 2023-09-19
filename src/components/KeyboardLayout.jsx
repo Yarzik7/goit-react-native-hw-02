@@ -1,7 +1,11 @@
 import { Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, StyleSheet, Platform } from 'react-native';
-import colors from '../constants/colors';
 
-const KeyboardLayout = ({ shouldRenderComponent, keyboardVerticalOffset, children }) => {
+const KeyboardLayout = ({
+  shouldRenderComponent = true,
+  keyboardVerticalOffset,
+  keyboardContainerStyle = {},
+  children,
+}) => {
   return (
     <>
       {shouldRenderComponent ? (
@@ -9,7 +13,7 @@ const KeyboardLayout = ({ shouldRenderComponent, keyboardVerticalOffset, childre
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             keyboardVerticalOffset={keyboardVerticalOffset}
-            style={styles.container}
+            style={[styles.container, keyboardContainerStyle]}
           >
             {children}
           </KeyboardAvoidingView>
@@ -24,22 +28,6 @@ const KeyboardLayout = ({ shouldRenderComponent, keyboardVerticalOffset, childre
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  authContainer: {
-    paddingHorizontal: 16,
-
-    alignItems: 'center',
-    backgroundColor: colors.white,
-    borderTopRightRadius: 25,
-    borderTopLeftRadius: 25,
-    maxHeight: '80%',
-  },
-  backgroundView: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  paddingLogin: {
-    paddingBottom: 111,
   },
 });
 

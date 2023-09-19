@@ -15,17 +15,14 @@ const Layout = ({ contentContainerStyles = [], children }) => {
       keyboardVerticalOffset={screenName === 'Login' ? -208 : -142}
     >
       <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundView}>
-        <View style={[styles.authContainer, ...contentContainerStyles]}>{children}</View>
+        <View style={[styles.contentContainer, ...contentContainerStyles]}>{children}</View>
       </ImageBackground>
     </KeyboardLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  authContainer: {
+  contentContainer: {
     width: '100%',
     paddingHorizontal: 16,
     alignItems: 'center',
@@ -37,12 +34,6 @@ const styles = StyleSheet.create({
   backgroundView: {
     flex: 1,
     justifyContent: 'flex-end',
-  },
-  paddingLogin: {
-    paddingBottom: 111,
-  },
-  paddingRegistration: {
-    paddingBottom: 45,
   },
 });
 

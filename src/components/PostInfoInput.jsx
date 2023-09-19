@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import color from '../constants/colors';
-const { linkColor, accentColor, white, backgroundColor, borderColor, secondaryTextColor } = color;
+const { accentColor, white, borderColor, secondaryTextColor } = color;
 
-const PostInfoInput = ({ Icon, placeholder, value, onChange = () => {} }) => {
+const PostInfoInput = ({ placeholder, value, onChange, children }) => {
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const onFocus = () => setIsInputFocused(true);
@@ -18,14 +18,14 @@ const PostInfoInput = ({ Icon, placeholder, value, onChange = () => {} }) => {
         style={[
           styles.postInfoInput,
           isInputFocused && styles.postInputFocused,
-          Icon && styles.inputLeftPadding,
+          children && styles.inputLeftPadding,
         ]}
         cursorColor={accentColor}
         onChangeText={onChange}
         onFocus={onFocus}
         onBlur={onBlur}
       />
-      {Icon}
+      {children}
     </View>
   );
 };

@@ -1,18 +1,11 @@
-import { StyleSheet, View, TouchableOpacity, Image, ImageBackground, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ImageBackground, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import color from '../constants/colors';
-const {
-  accentColor,
-  white,
-  backgroundColor,
-  borderColor,
-  shadowColor,
-  cameraBackgroundColor,
-  primaryTextColor,
-} = color;
+import { FontAwesome } from '@expo/vector-icons';
 
-const PostImage = ({ imagePath = null, setImagePath = () => {} }) => {
+import color from '../constants/colors';
+const { white, backgroundColor, cameraBackgroundColor, primaryTextColor } = color;
+
+const PostImage = ({ imagePath = null, setImagePath }) => {
   const onImageAction = async () => {
     try {
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -78,7 +71,7 @@ const styles = StyleSheet.create({
   },
   imageActionText: {
     color: primaryTextColor,
-    fontFamily: 'Roboto',
+    fontFamily: 'Roboto-Regular',
     fontSize: 16,
     fontWeight: 400,
   },
