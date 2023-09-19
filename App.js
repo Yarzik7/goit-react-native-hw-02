@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import MainNavigator from './src/navigators/MainNavigator';
+import MainNavigator from './src/routes/MainNavigator';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
