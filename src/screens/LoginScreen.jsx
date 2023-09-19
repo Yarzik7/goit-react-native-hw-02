@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 import Title from '../components/Title';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
-import Layout from '../components/Layout';
+import AuthLayout from '../components/AuthLayout';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
@@ -29,7 +29,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <Layout contentContainerStyles={[styles.paddingLogin]}>
+    <AuthLayout contentContainerStyles={[styles.paddingLogin]}>
       <Title title="Увійти" />
 
       <View style={styles.authForm}>
@@ -43,7 +43,7 @@ const LoginScreen = () => {
         <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
         <AuthAction onSubmit={onSubmit} activeAuthScreen="Login" />
       </View>
-    </Layout>
+    </AuthLayout>
   );
 };
 

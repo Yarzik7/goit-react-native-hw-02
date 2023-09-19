@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import Title from '../components/Title';
 import { useNavigation } from '@react-navigation/native';
-import Layout from '../components/Layout';
+import AuthLayout from '../components/AuthLayout';
 import Avatar from '../components/Avatar';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
@@ -33,7 +33,7 @@ const RegistrationScreen = () => {
   };
 
   return (
-    <Layout contentContainerStyles={[styles.paddingRegistration]}>
+    <AuthLayout contentContainerStyles={[styles.paddingRegistration]}>
       <Avatar avatarPath={avatarPath} setAvatarPath={setAvatarPath} />
 
       <Title title="Реєстрація" />
@@ -51,7 +51,7 @@ const RegistrationScreen = () => {
         <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
         <AuthAction onSubmit={onSubmit} activeAuthScreen="Registration" />
       </View>
-    </Layout>
+    </AuthLayout>
   );
 };
 
