@@ -40,7 +40,13 @@ const LoginScreen = () => {
           onChange={setEmail}
         />
 
-        <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
+        <AuthInput
+          type={'password'}
+          value={password}
+          autoCapitalize="none"
+          placeholder={'Пароль'}
+          onChange={setPassword}
+        />
         <AuthAction onSubmit={onSubmit} activeAuthScreen="Login" />
       </View>
     </AuthLayout>

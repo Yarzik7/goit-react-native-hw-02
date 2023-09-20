@@ -4,13 +4,14 @@ import posts from '../data/postsData';
 
 const PostsList = () => {
   return (
-      <FlatList
-        data={posts}
-        renderItem={({ item }) => <Post postInfo={item} />}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.postList}
-        style={styles.postListContainer}
-      />
+    <FlatList
+      data={posts}
+      renderItem={({ item }) => <Post postInfo={item} />}
+      keyExtractor={item => item.id}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.postList}
+      style={styles.postListContainer}
+    />
   );
 };
 

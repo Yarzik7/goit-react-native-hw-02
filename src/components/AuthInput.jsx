@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-nativ
 import color from '../constants/colors';
 const { linkColor, accentColor, white, backgroundColor, borderColor, secondaryTextColor } = color;
 
-const AuthInput = ({ type, placeholder, value, onChange }) => {
+const AuthInput = ({ type, placeholder, value, autoCapitalize, onChange }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
@@ -20,6 +20,7 @@ const AuthInput = ({ type, placeholder, value, onChange }) => {
       <TextInput
         value={value}
         placeholder={placeholder}
+        autoCapitalize={autoCapitalize}
         inputMode={isPasswordType ? 'text' : type}
         style={[styles.authInput, isInputFocused && styles.authInputFocused]}
         cursorColor={accentColor}

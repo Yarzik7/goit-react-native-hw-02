@@ -39,7 +39,13 @@ const RegistrationScreen = () => {
       <Title title="Реєстрація" />
 
       <View style={styles.authForm}>
-        <AuthInput type={'text'} value={login} placeholder={'Логін'} onChange={setLogin} />
+        <AuthInput
+          type={'text'}
+          value={login}
+          autoCapitalize="words"
+          placeholder={'Логін'}
+          onChange={setLogin}
+        />
 
         <AuthInput
           type={'email'}
@@ -48,7 +54,13 @@ const RegistrationScreen = () => {
           onChange={setEmail}
         />
 
-        <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
+        <AuthInput
+          type={'password'}
+          value={password}
+          autoCapitalize="none"
+          placeholder={'Пароль'}
+          onChange={setPassword}
+        />
         <AuthAction onSubmit={onSubmit} activeAuthScreen="Registration" />
       </View>
     </AuthLayout>
