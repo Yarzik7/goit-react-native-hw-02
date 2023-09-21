@@ -1,6 +1,7 @@
 const colors = {
   white: '#ffffff',
   black: '#000000',
+  commentContainerBackground: 'rgba(0, 0, 0, 0.03)',
   accentColor: '#FF6C00',
   primaryTextColor: '#BDBDBD',
   secondaryTextColor: '#212121',

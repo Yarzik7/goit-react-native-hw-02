@@ -3,12 +3,16 @@ import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 import color from '../constants/colors';
+import { useNavigation } from '@react-navigation/native';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
 
 const PostDescription = ({ commentsCount = 0, likesCount = 0, location = 'Location' }) => {
+  const navigator = useNavigation();
+  const navigateToComments = () => navigator.navigate('Comments');
+
   return (
     <View style={styles.descriptionContainer}>
-      <TouchableOpacity style={styles.descriptionItem}>
+      <TouchableOpacity style={styles.descriptionItem} onPress={navigateToComments}>
         <FontAwesome
           name={commentsCount ? 'comment' : 'comment-o'}
           size={24}

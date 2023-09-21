@@ -1,12 +1,15 @@
 import { View, Image, TextInput } from 'react-native';
 import KeyboardLayout from '../components/KeyboardLayout';
+import CommentsList from '../components/CommentsList';
 
-const CommentsScreen = () => {
+const CommentsScreen = ({ navigation }) => {
+  // navigation.getParent().setOptions({ tabBarStyle: { display: 'none' } });
   return (
     <KeyboardLayout>
       <View>
-        <Image />
-        <TextInput />
+        {/* <Image /> */}
+        <CommentsList />
+        {/* <TextInput /> */}
       </View>
     </KeyboardLayout>
   );

@@ -25,7 +25,7 @@ const LoginScreen = () => {
     const userData = { email, password };
     console.log(userData);
     reset();
-    navigation.navigate('BottomTabs', { screen: 'Posts', params: userData });
+    navigation.navigate('BottomTabs', { screen: 'PostsNavigator', params: {screen: 'Posts', params: userData} });
   };
 
   return (

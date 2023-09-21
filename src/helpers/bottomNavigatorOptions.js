@@ -1,12 +1,14 @@
 import { Feather } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+
 import color from '../constants/colors';
 const { accentColor, emailColor, white, borderColor } = color;
 
 const bottomNavigatorOptions = ({ route }) => ({
   tabBarIcon: ({ focused, color }) => {
     const screens = {
-      Posts: 'grid',
+      PostsNavigator: 'grid',
       CreatePosts: 'plus',
       Profile: 'user',
     };
@@ -17,7 +19,7 @@ const bottomNavigatorOptions = ({ route }) => ({
       <Feather name={iconName} size={24} color={color} style={[styles.tab, focused && styles.activeTab]} />
     );
   },
-  tabBarStyle: [styles.tabBar, null],
+  tabBarStyle: [styles.tabBar, getFocusedRouteNameFromRoute(route) === 'Comments' && styles.hidden, null],
   tabBarActiveTintColor: white,
   tabBarInactiveTintColor: emailColor,
   tabBarShowLabel: false,
@@ -28,6 +30,9 @@ const styles = StyleSheet.create({
   tabBar: {
     height: 71,
     paddingHorizontal: '20%',
+  },
+  hidden: {
+    display: 'none',
   },
   header: {
     backgroundColor: white,

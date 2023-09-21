@@ -1,15 +1,21 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { PostsScreen, CreatePostsScreen, ProfileScreen } from '../screens';
 import { bottomNavigatorOptions } from '../helpers';
+import PostNavigator from './PostNavigator';
 import LogoutButton from '../components/LogoutButton';
 import ArrowButton from '../components/ArrowButton';
+import { useIsFocused, useRoute } from '@react-navigation/native';
 
 const Tabs = createBottomTabNavigator();
 
 const BottomNavigator = () => {
+  // const isFocused = useIsFocused();
+  // console.log(isFocused);
+  // const route = useRoute();
+  // console.log(route);
   return (
-    <Tabs.Navigator initialRouteName="Posts" screenOptions={bottomNavigatorOptions}>
-      <Tabs.Screen
+    <Tabs.Navigator initialRouteName="PostsNavigator" screenOptions={(route)=>bottomNavigatorOptions(route)}>
+      {/* <Tabs.Screen
         name="Posts"
         component={PostsScreen}
         options={() => ({
@@ -18,7 +24,8 @@ const BottomNavigator = () => {
           headerTitleAlign: 'center',
           headerRight: () => <LogoutButton />,
         })}
-      />
+      /> */}
+      <Tabs.Screen name="PostsNavigator" component={PostNavigator} options={{ headerShown: false }} />
       <Tabs.Screen
         name="CreatePosts"
         component={CreatePostsScreen}

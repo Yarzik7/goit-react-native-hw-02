@@ -29,7 +29,10 @@ const RegistrationScreen = () => {
     }
     const userData = { login, email, password, avatarPath };
     reset();
-    navigation.navigate('BottomTabs', { screen: 'Posts', params: userData });
+    navigation.navigate('BottomTabs', {
+      screen: 'PostsNavigator',
+      params: { screen: 'Posts', params: userData },
+    });
   };
 
   return (
