@@ -9,7 +9,7 @@ const Post = ({ postInfo: { img = null, label = 'Post name', commentsCount, like
     <View style={styles.postContainer}>
       <Image source={{ uri: img }} resizeMode="cover" style={styles.postImage} />
       <Text style={styles.postCaption}>{label}</Text>
-      <PostDescription commentsCount={commentsCount} likesCount={likesCount} location={location} />
+      <PostDescription img={img} commentsCount={commentsCount} likesCount={likesCount} location={location} />
     </View>
   );
 };

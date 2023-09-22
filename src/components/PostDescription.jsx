@@ -6,9 +6,9 @@ import color from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
 
-const PostDescription = ({ commentsCount = 0, likesCount = 0, location = 'Location' }) => {
+const PostDescription = ({ img, commentsCount = 0, likesCount = 0, location = 'Location' }) => {
   const navigator = useNavigation();
-  const navigateToComments = () => navigator.navigate('Comments');
+  const navigateToComments = () => navigator.navigate('Comments', img);
 
   return (
     <View style={styles.descriptionContainer}>
