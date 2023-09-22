@@ -8,7 +8,7 @@ const { white } = colors;
 
 const PostsScreen = () => {
   const {
-    params: { login, email, avatarPath },
+    params: { login, email, avatarPath } = {},
   } = useRoute();
 
   return (

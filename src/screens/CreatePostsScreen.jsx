@@ -3,6 +3,7 @@ import PostImage from '../components/PostImage';
 import PostInfoInput from '../components/PostInfoInput';
 import Button from '../components/Button';
 import KeyboardLayout from '../components/KeyboardLayout';
+import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -14,6 +15,7 @@ const CreatePostsScreen = () => {
   const [postImage, setPostImage] = useState(null);
   const [postName, setPostName] = useState('');
   const [postImageLocation, setPostImageLocation] = useState('');
+  const [coords, setCoords] = useState(null);
 
   const navigation = useNavigation();
 
@@ -21,14 +23,28 @@ const CreatePostsScreen = () => {
     setPostImage(null);
     setPostName('');
     setPostImageLocation('');
+    setCoords(null);
   };
 
   const isDisabledButton = () => !(postImage && postName && postImageLocation);
 
-  const onCreatePost = () => {
-    const postData = { postImage, postName, postImageLocation };
+  const onCreatePost = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    const currentCoords = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
+
+    setCoords(currentCoords);
+
+    const postData = { postImage, postName, postImageLocation, currentCoords };
     console.log(postData);
-    navigation.goBack();
+    navigation.navigate('Posts');
     reset();
   };
 

@@ -6,9 +6,10 @@ import color from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
 
-const PostDescription = ({ img, commentsCount = 0, likesCount = 0, location = 'Location' }) => {
+const PostDescription = ({ label, coords, img, commentsCount = 0, likesCount = 0, location = 'Location' }) => {
   const navigator = useNavigation();
   const navigateToComments = () => navigator.navigate('Comments', img);
+  const navigateToMap = () => navigator.navigate('MapScreen', {label,coords,location});
 
   return (
     <View style={styles.descriptionContainer}>
@@ -27,7 +28,7 @@ const PostDescription = ({ img, commentsCount = 0, likesCount = 0, location = 'L
         <Text style={styles.descriptionText}>{likesCount}</Text>
       </View>
 
-      <TouchableOpacity style={[styles.descriptionItem, styles.location]}>
+      <TouchableOpacity style={[styles.descriptionItem, styles.location]} onPress={navigateToMap}>
         <Feather name="map-pin" size={24} color={primaryTextColor} />
         <Text style={[styles.descriptionText, styles.locationText]}>{location}</Text>
       </TouchableOpacity>

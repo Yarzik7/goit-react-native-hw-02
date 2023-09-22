@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import { PostsScreen, CommentsScreen } from '../screens';
+import { PostsScreen, CommentsScreen, MapScreen } from '../screens';
 import ArrowButton from '../components/ArrowButton';
 import LogoutButton from '../components/LogoutButton';
 
@@ -39,7 +39,13 @@ const PostNavigator = () => {
         component={CommentsScreen}
         options={() => ({
           title: 'Коментарі',
-          tabBarStyle: { display: 'none' },
+        })}
+      />
+      <PostStack.Screen
+        name="MapScreen"
+        component={MapScreen}
+        options={() => ({
+          title: 'Карта',
         })}
       />
     </PostStack.Navigator>

@@ -4,12 +4,21 @@ import PostDescription from './PostDescription';
 import color from '../constants/colors';
 const { secondaryTextColor, backgroundColor } = color;
 
-const Post = ({ postInfo: { img = null, label = 'Post name', commentsCount, likesCount, location } }) => {
+const Post = ({
+  postInfo: { img = null, label = 'Post name', commentsCount, likesCount, location, coords },
+}) => {
   return (
     <View style={styles.postContainer}>
       <Image source={{ uri: img }} resizeMode="cover" style={styles.postImage} />
       <Text style={styles.postCaption}>{label}</Text>
-      <PostDescription img={img} commentsCount={commentsCount} likesCount={likesCount} location={location} />
+      <PostDescription
+        img={img}
+        commentsCount={commentsCount}
+        likesCount={likesCount}
+        location={location}
+        label={label}
+        coords={coords}
+      />
     </View>
   );
 };

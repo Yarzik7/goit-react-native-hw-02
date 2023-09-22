@@ -6,6 +6,7 @@ const posts = [
     commentsCount: 1,
     likesCount: 12,
     location: 'Ukraine',
+    coords: { latitude: 46.487523, longitude: 30.747745 },
   },
   {
     id: '2',
@@ -14,6 +15,7 @@ const posts = [
     commentsCount: 0,
     likesCount: 10,
     location: 'Ukraine',
+    coords: { latitude: 49.102818, longitude: 32.148777 },
   },
   {
     id: '3',
@@ -22,6 +24,7 @@ const posts = [
     commentsCount: 1,
     likesCount: 0,
     location: 'Ukraine',
+    coords: { latitude: 48.533509, longitude: 22.558338 },
   },
   {
     id: '4',
@@ -30,6 +33,7 @@ const posts = [
     commentsCount: 12,
     likesCount: 140,
     location: 'Ukraine',
+    coords: { latitude: 48.533509, longitude: 22.558338 },
   },
   {
     id: '5',
@@ -38,6 +42,7 @@ const posts = [
     commentsCount: 1,
     likesCount: 10,
     location: 'Ukraine',
+    coords: { latitude: 48.533509, longitude: 22.558338 },
   },
   {
     id: '6',
@@ -46,6 +51,7 @@ const posts = [
     commentsCount: 10,
     likesCount: 60,
     location: 'Ukraine',
+    coords: { latitude: 48.533509, longitude: 22.558338 },
   },
 ];
 
