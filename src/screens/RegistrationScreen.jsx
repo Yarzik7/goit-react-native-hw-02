@@ -31,7 +31,7 @@ const RegistrationScreen = () => {
     reset();
     navigation.navigate('BottomTabs', {
       screen: 'PostsNavigator',
-      params: { screen: 'Posts', params: userData },
+      params: { screen: 'PostsScreen', params: userData },
     });
   };
 
@@ -64,7 +64,7 @@ const RegistrationScreen = () => {
           placeholder={'Пароль'}
           onChange={setPassword}
         />
-        <AuthAction onSubmit={onSubmit} activeAuthScreen="Registration" />
+        <AuthAction onSubmit={onSubmit} activeAuthScreen="RegistrationScreen" />
       </View>
     </AuthLayout>
   );

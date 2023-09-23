@@ -7,7 +7,7 @@ const { primaryTextColor } = colors;
 
 const LogoutButton = ({ style = {} }) => {
   const navigator = useNavigation();
-  const onNavigateByLogout = () => navigator.navigate('Login');
+  const onNavigateByLogout = () => navigator.navigate('LoginScreen');
 
   return (
     <TouchableOpacity style={style} onPress={onNavigateByLogout}>

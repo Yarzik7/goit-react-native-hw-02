@@ -7,22 +7,22 @@ const CommentsList = () => {
   return (
     <FlatList
       data={comments}
-      renderItem={({ item }) => (
-        <Comment text={item.text} userAvatar={item.userAvatar} date={item.date} author={item.author} />
+      renderItem={({ item: { text, userAvatar, date, author } }) => (
+        <Comment text={text} userAvatar={userAvatar} date={date} author={author} />
       )}
       keyExtractor={item => item.id}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.postList}
-      style={styles.postListContainer}
+      contentContainerStyle={styles.commentsList}
+      style={styles.commentsListContainer}
     />
   );
 };
 
 const styles = StyleSheet.create({
-  postListContainer: {
+  commentsListContainer: {
     width: '100%',
   },
-  postList: {
+  commentsList: {
     gap: 24,
   },
 });

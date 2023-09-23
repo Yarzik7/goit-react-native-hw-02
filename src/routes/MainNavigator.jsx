@@ -7,9 +7,9 @@ const MainStack = createStackNavigator();
 
 const MainNavigator = () => {
   return (
-    <MainStack.Navigator initialRouteName="Login">
-      <MainStack.Screen name="Registration" component={RegistrationScreen} options={{ headerShown: false }} />
-      <MainStack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+    <MainStack.Navigator initialRouteName="LoginScreen">
+      <MainStack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ headerShown: false }} />
+      <MainStack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
       <MainStack.Screen name="BottomTabs" component={BottomNavigator} options={{ headerShown: false }} />
     </MainStack.Navigator>
   );

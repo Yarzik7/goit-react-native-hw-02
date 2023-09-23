@@ -7,7 +7,7 @@ const { linkColor } = color;
 
 const AuthAction = ({ activeAuthScreen, onSubmit }) => {
   const navigation = useNavigation();
-  const navToAuthScreen = () => navigation.navigate(activeAuthScreen === 'Login' ? 'Registration' : 'Login');
+  const navToAuthScreen = () => navigation.navigate(activeAuthScreen === 'LoginScreen' ? 'RegistrationScreen' : 'LoginScreen');
 
   return (
     <View style={styles.authActionContainer}>

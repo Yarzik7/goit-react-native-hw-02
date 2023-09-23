@@ -11,7 +11,7 @@ const BottomNavigator = () => {
     <Tabs.Navigator initialRouteName="PostsNavigator" screenOptions={bottomNavigatorOptions}>
       <Tabs.Screen name="PostsNavigator" component={PostNavigator} options={{ headerShown: false }} />
       <Tabs.Screen
-        name="CreatePosts"
+        name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={() => ({
           headerBackVisible: false,
@@ -24,7 +24,7 @@ const BottomNavigator = () => {
         })}
       />
       <Tabs.Screen
-        name="Profile"
+        name="ProfileScreen"
         component={ProfileScreen}
         options={() => ({
           headerShown: false,

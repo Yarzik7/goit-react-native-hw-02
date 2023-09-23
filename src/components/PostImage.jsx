@@ -1,8 +1,7 @@
 import { StyleSheet, View, TouchableOpacity, ImageBackground, Text } from 'react-native';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
-import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -19,8 +18,6 @@ const PostImage = ({ imagePath = null, setImagePath }) => {
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      await MediaLibrary.requestPermissionsAsync();
-
       setHasPermission(status === 'granted');
     })();
   }, []);
@@ -54,15 +51,15 @@ const PostImage = ({ imagePath = null, setImagePath }) => {
 
   return (
     <View style={styles.postImageContainer}>
-      <View style={[styles.postImageView]}>
+      <View style={styles.postImageView}>
         <ImageBackground
           source={{ uri: imagePath }}
           resizeMode="cover"
           imageStyle={styles.postImage}
-          style={[styles.photoContainer]}
+          style={styles.photoContainer}
         >
           {hasPermission && isFocused && !imagePath ? (
-            <Camera type={type} ref={setCameraRef} style={[styles.camera]} />
+            <Camera type={type} ref={setCameraRef} style={styles.camera} />
           ) : null}
         </ImageBackground>
 

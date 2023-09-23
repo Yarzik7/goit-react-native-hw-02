@@ -7,11 +7,13 @@ import colors from '../constants/colors';
 const { white, backgroundColor, secondaryTextColor, borderColor, accentColor } = colors;
 
 const CommentsScreen = () => {
-  const { params } = useRoute();
+  const {
+    params: { img },
+  } = useRoute();
 
   return (
     <View style={styles.commentsScreenContainer}>
-      <Image source={{ uri: params }} resizeMode="cover" style={styles.postImage} />
+      <Image source={{ uri: img }} resizeMode="cover" style={styles.postImage} />
 
       <CommentsList />
 
@@ -26,21 +28,6 @@ const CommentsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  postContainer: {
-    width: '100%',
-    maxHeight: 299,
-    gap: 8,
-  },
-  postImage: {
-    width: '100%',
-    height: 240,
-    borderRadius: 8,
-  },
-  postCaption: {
-    color: secondaryTextColor,
-    fontWeight: 500,
-    fontFamily: 'Roboto-Medium',
-  },
   commentsScreenContainer: {
     flex: 1,
     gap: 32,
@@ -48,6 +35,11 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     paddingBottom: 16,
     backgroundColor: white,
+  },
+  postImage: {
+    width: '100%',
+    height: 240,
+    borderRadius: 8,
   },
   commentInput: {
     backgroundColor,

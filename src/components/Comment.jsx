@@ -3,7 +3,7 @@ const { View, Text, Image, StyleSheet } = require('react-native');
 import colors from '../constants/colors';
 const { commentContainerBackground, secondaryTextColor, primaryTextColor, backgroundColor } = colors;
 
-const Comment = ({ userAvatar = null, text = 'text', date = 'date', author }) => {
+const Comment = ({ userAvatar = null, text, date, author }) => {
   isCurrentUser = author === 'current';
 
   return (

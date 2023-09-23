@@ -29,23 +29,33 @@ const CreatePostsScreen = () => {
   const isDisabledButton = () => !(postImage && postName && postImageLocation);
 
   const onCreatePost = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      console.log('Permission to access location was denied');
-    }
-
-    let location = await Location.getCurrentPositionAsync({});
-    const currentCoords = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
+    let currentCoords = {
+      latitude: 0,
+      longitude: 0,
     };
 
-    setCoords(currentCoords);
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        console.log('Permission to access location was denied');
+      }
 
-    const postData = { postImage, postName, postImageLocation, currentCoords };
-    console.log(postData);
-    navigation.navigate('Posts');
-    reset();
+      let location = await Location.getCurrentPositionAsync({});
+      currentCoords = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      };
+    } catch (error) {
+      console.log('Не вдалося отримати координати вашого місцезнаходження');
+    } finally {
+      setCoords(currentCoords);
+
+      const postData = { postImage, postName, postImageLocation, currentCoords };
+      console.log(postData);
+      reset();
+
+      navigation.navigate('PostsScreen');
+    }
   };
 
   return (

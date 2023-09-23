@@ -5,14 +5,14 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import colors from '../constants/colors';
 const { accentColor, emailColor, white, borderColor } = colors;
 
-const hiddenBottomTabsScreens = ['Comments', 'MapScreen'];
+const hiddenBottomTabsScreens = ['CommentsScreen', 'MapScreen'];
 
 const bottomNavigatorOptions = ({ route }) => ({
   tabBarIcon: ({ focused, color }) => {
     const screens = {
       PostsNavigator: 'grid',
-      CreatePosts: 'plus',
-      Profile: 'user',
+      CreatePostsScreen: 'plus',
+      ProfileScreen: 'user',
     };
 
     const iconName = screens[route.name] ?? 'x-circle';

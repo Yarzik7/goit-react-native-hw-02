@@ -25,7 +25,7 @@ const LoginScreen = () => {
     const userData = { email, password };
     console.log(userData);
     reset();
-    navigation.navigate('BottomTabs', { screen: 'PostsNavigator', params: {screen: 'Posts', params: userData} });
+    navigation.navigate('BottomTabs', { screen: 'PostsNavigator', params: {screen: 'PostsScreen', params: userData} });
   };
 
   return (
@@ -47,7 +47,7 @@ const LoginScreen = () => {
           placeholder={'Пароль'}
           onChange={setPassword}
         />
-        <AuthAction onSubmit={onSubmit} activeAuthScreen="Login" />
+        <AuthAction onSubmit={onSubmit} activeAuthScreen="LoginScreen" />
       </View>
     </AuthLayout>
   );
