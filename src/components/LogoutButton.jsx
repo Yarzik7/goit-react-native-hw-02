@@ -1,13 +1,18 @@
 import { Feather } from '@expo/vector-icons';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { logOut } from '../firebase/auth';
 
 import colors from '../constants/colors';
-import { useNavigation } from '@react-navigation/native';
+
 const { primaryTextColor } = colors;
 
 const LogoutButton = ({ style = {} }) => {
   const navigator = useNavigation();
-  const onNavigateByLogout = () => navigator.navigate('LoginScreen');
+  const onNavigateByLogout = async () => {
+    await logOut();
+    navigator.navigate('LoginScreen')
+  };
 
   return (
     <TouchableOpacity style={style} onPress={onNavigateByLogout}>

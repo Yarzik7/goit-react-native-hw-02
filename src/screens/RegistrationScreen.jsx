@@ -7,6 +7,8 @@ import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import { useState } from 'react';
 
+import { registerDB } from '../firebase/auth';
+
 const RegistrationScreen = () => {
   const [avatarPath, setAvatarPath] = useState(null);
   const [login, setLogin] = useState('');
@@ -22,12 +24,13 @@ const RegistrationScreen = () => {
     setAvatarPath(null);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!login || !email || !password) {
       console.log('Заповніть будь ласка всі поля!');
       return;
     }
     const userData = { login, email, password, avatarPath };
+    await registerDB(userData);
     reset();
     navigation.navigate('BottomTabs', {
       screen: 'PostsNavigator',

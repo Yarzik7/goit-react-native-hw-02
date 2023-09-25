@@ -6,6 +6,8 @@ import AuthLayout from '../components/AuthLayout';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
+import { loginDB } from '../firebase/auth';
+
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,15 +19,19 @@ const LoginScreen = () => {
     setPassword('');
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!email || !password) {
       console.log('Заповніть будь ласка всі поля!');
       return;
     }
     const userData = { email, password };
     console.log(userData);
+    await loginDB(userData);
     reset();
-    navigation.navigate('BottomTabs', { screen: 'PostsNavigator', params: {screen: 'PostsScreen', params: userData} });
+    navigation.navigate('BottomTabs', {
+      screen: 'PostsNavigator',
+      params: { screen: 'PostsScreen', params: userData },
+    });
   };
 
   return (

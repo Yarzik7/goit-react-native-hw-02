@@ -2,12 +2,12 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import color from '../constants/colors';
 const { white, primaryTextColor, accentColor, buttonDisabledColor } = color;
 
-const Button = ({ text, disabled = false, onSubmit = () => {} }) => {
+const Button = ({ text, disabled = false, onSubmit = async () => {} }) => {
   return (
     <TouchableOpacity
       disabled={disabled}
       style={[styles.button, disabled && styles.buttonDisabled]}
-      onPress={onSubmit}
+      onPress={async () => await onSubmit()}
     >
       <Text style={[styles.buttonText, disabled && styles.buttonDisabledText]}>{text}</Text>
     </TouchableOpacity>

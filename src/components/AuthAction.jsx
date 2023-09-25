@@ -7,14 +7,15 @@ const { linkColor } = color;
 
 const AuthAction = ({ activeAuthScreen, onSubmit }) => {
   const navigation = useNavigation();
-  const navToAuthScreen = () => navigation.navigate(activeAuthScreen === 'LoginScreen' ? 'RegistrationScreen' : 'LoginScreen');
+  const navToAuthScreen = () =>
+    navigation.navigate(activeAuthScreen === 'LoginScreen' ? 'RegistrationScreen' : 'LoginScreen');
 
   return (
     <View style={styles.authActionContainer}>
-      <Button text={activeAuthScreen === 'Login' ? 'Увійти' : 'Зареєструватися'} onSubmit={onSubmit} />
+      <Button text={activeAuthScreen === 'LoginScreen' ? 'Увійти' : 'Зареєструватися'} onSubmit={onSubmit} />
       <TouchableOpacity style={styles.link} onPress={navToAuthScreen}>
         <Text style={styles.linkText}>
-          {activeAuthScreen === 'Login' ? (
+          {activeAuthScreen === 'LoginScreen' ? (
             <>
               Немає акаунту? <Text style={styles.signUpLink}>Зареєструватися</Text>
             </>
