@@ -1,5 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../redux/auth/selectors';
 import UserInfo from '../components/UserInfo';
 import PostsList from '../components/PostsList';
 import { auth } from '../../config';
@@ -17,7 +19,10 @@ const PostsScreen = () => {
   //   params: { login, email, avatarPath } = {},
   // } = useRoute();
 
-  const { displayName, email, photoURL = null } = auth.currentUser;
+  // const { displayName, email, photoURL = null } = useSelector(selectUser);
+  // console.log(displayName, email, photoURL);
+
+  const { displayName, email, photoURL } = useSelector(selectUser);
 
   return (
     <View style={styles.postsContainer}>

@@ -14,6 +14,7 @@ const PostNavigator = () => {
         options={() => ({
           title: 'Публікації',
           headerRight: () => <LogoutButton />,
+          headerLeft: null,
         })}
       />
       <PostStack.Screen

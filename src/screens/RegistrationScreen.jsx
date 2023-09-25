@@ -1,13 +1,15 @@
 import { StyleSheet, View } from 'react-native';
 import Title from '../components/Title';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../redux/auth/selectors';
 import AuthLayout from '../components/AuthLayout';
 import Avatar from '../components/Avatar';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
-import { useState } from 'react';
-
-import { registerDB } from '../firebase/auth';
+import { useState, useEffect } from 'react';
+import { register } from '../redux/auth/operations';
+import { useLoggedInRedirect } from '../hooks/useIsLoggedInRedirect';
 
 const RegistrationScreen = () => {
   const [avatarPath, setAvatarPath] = useState(null);
@@ -15,7 +17,11 @@ const RegistrationScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  // const navigation = useNavigation();
+  useLoggedInRedirect(isLoggedIn);
 
   const reset = () => {
     setLogin('');
@@ -30,13 +36,22 @@ const RegistrationScreen = () => {
       return;
     }
     const userData = { login, email, password, avatarPath };
-    await registerDB(userData);
+    // await registerDB(userData);
+    dispatch(register(userData));
     reset();
-    navigation.navigate('BottomTabs', {
-      screen: 'PostsNavigator',
-      params: { screen: 'PostsScreen', params: userData },
-    });
+    // navigation.navigate('BottomTabs', {
+    //   screen: 'PostsNavigator',
+    //   params: { screen: 'PostsScreen', params: userData },
+    // });
   };
+
+  // if (isLoggedIn) {
+  //   navigation.navigate('BottomTabs');
+  // }
+
+  if (isLoggedIn) {
+    return <></>;
+  }
 
   return (
     <AuthLayout contentContainerStyles={[styles.paddingRegistration]}>

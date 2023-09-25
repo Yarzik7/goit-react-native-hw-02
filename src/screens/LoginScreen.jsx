@@ -4,7 +4,10 @@ import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import AuthLayout from '../components/AuthLayout';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../redux/auth/selectors';
+import { useLoggedInRedirect } from '../hooks/useIsLoggedInRedirect';
 
 import { loginDB } from '../firebase/auth';
 
@@ -12,7 +15,10 @@ const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigation = useNavigation();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  // const navigation = useNavigation();
+  useLoggedInRedirect(isLoggedIn);
 
   const reset = () => {
     setEmail('');
@@ -28,11 +34,15 @@ const LoginScreen = () => {
     console.log(userData);
     await loginDB(userData);
     reset();
-    navigation.navigate('BottomTabs', {
-      screen: 'PostsNavigator',
-      params: { screen: 'PostsScreen', params: userData },
-    });
+    // navigation.navigate('BottomTabs', {
+    //   screen: 'PostsNavigator',
+    //   params: { screen: 'PostsScreen', params: userData },
+    // });
   };
+
+  if (isLoggedIn) {
+    return <></>;
+  }
 
   return (
     <AuthLayout contentContainerStyles={[styles.paddingLogin]}>

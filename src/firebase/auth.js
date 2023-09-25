@@ -52,12 +52,21 @@ const loginDB = async ({ email, password }) => {
 };
 
 const registerDB = async ({ email, password, login: displayName }) => {
-  await createUserWithEmailAndPassword(auth, email, password).catch(error => console.log(error.message));
-  await updateUserProfile({ displayName }).catch(() => console.log('Не вдалося оновити дані користувача'));
-  await loginDB({ email, password }).catch(() =>
-    console.log('Не вдалося увійти в аккаунт після реєстрації. Спробуйте увійти ще раз')
-  );
-  await authStateChanged();
+  await createUserWithEmailAndPassword(auth, email, password);
+  console.log('Користувача зареєстровано');
+  await updateUserProfile({ displayName });
+  await loginDB({ email, password });
+  console.log('Спроба увійти в систему була успішною');
+  // await authStateChanged();
+
+  const registeredUserData = {
+    displayName: auth.currentUser.displayName,
+    email: auth.currentUser.email,
+    photoURL: auth.currentUser.photoURL,
+    uid: auth.currentUser.uid,
+  };
+
+  return registeredUserData;
 };
 
 export { registerDB, loginDB, authStateChanged, updateUserProfile, logOut };

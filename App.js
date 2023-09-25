@@ -2,15 +2,9 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import MainNavigator from './src/routes/MainNavigator';
-// import { loginDB, registerDB, getCities, authStateChanged, updateUserProfile } from './config';
-
-
-
-// (async function () {
-//   await registerDB({login:'User1',email: 'email1@gmail.com', password: 'pass1wASdsad'});
-// })()
-
-
+import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from 'react-redux';
+import { store, persistor } from './src/redux/store';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -24,9 +18,13 @@ const App = () => {
   }
 
   return (
-    <NavigationContainer>
-      <MainNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <NavigationContainer>
+          <MainNavigator />
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 };
 

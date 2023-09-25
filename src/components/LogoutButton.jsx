@@ -1,17 +1,32 @@
 import { Feather } from '@expo/vector-icons';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { logOut } from '../firebase/auth';
+import { useDispatch } from 'react-redux';
+import { logOutUser } from '../redux/auth/operations';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../redux/auth/selectors';
 
 import colors from '../constants/colors';
+import { useEffect } from 'react';
 
 const { primaryTextColor } = colors;
 
 const LogoutButton = ({ style = {} }) => {
-  const navigator = useNavigation();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'LoginScreen' }],
+      });
+    }
+  }, [isLoggedIn]);
+
   const onNavigateByLogout = async () => {
-    await logOut();
-    navigator.navigate('LoginScreen')
+    dispatch(logOutUser());
   };
 
   return (
