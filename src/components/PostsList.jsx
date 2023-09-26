@@ -1,8 +1,12 @@
 import { FlatList, StyleSheet } from 'react-native';
 import Post from './Post';
 import posts from '../data/postsData';
+import { useSelector } from 'react-redux';
+import { selectPosts } from '../redux/posts/selectors';
 
 const PostsList = () => {
+  const postsIt = useSelector(selectPosts);
+  console.log(postsIt);
   return (
     <FlatList
       data={posts}

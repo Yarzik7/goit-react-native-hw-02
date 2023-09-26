@@ -2,14 +2,29 @@ import { View, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-nati
 import { useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import CommentsList from '../components/CommentsList';
+import { useState } from 'react';
+import { createComment } from '../redux/comments/operations';
+import { selectUser } from '../redux/auth/selectors';
 
 import colors from '../constants/colors';
+import { useDispatch, useSelector } from 'react-redux';
 const { white, backgroundColor, secondaryTextColor, borderColor, accentColor } = colors;
 
 const CommentsScreen = () => {
+  const [commentText, setCommentText] = useState('');
+
+  const dispatch = useDispatch();
+  const { uid: author } = useSelector(selectUser);
+
   const {
-    params: { img },
+    params: { img, postId },
   } = useRoute();
+
+  const onSendComment = () => {
+    const commentData = { author, commentText, postId, date: new Date().toDateString() };
+    setCommentText('');
+    dispatch(createComment(commentData));
+  };
 
   return (
     <View style={styles.commentsScreenContainer}>
@@ -18,9 +33,15 @@ const CommentsScreen = () => {
       <CommentsList />
 
       <View>
-        <TextInput placeholder="Коментувати..." cursorColor={accentColor} style={styles.commentInput} />
-        <TouchableOpacity style={styles.sendButton}>
-          <AntDesign name="arrowup" size={24} color="white" />
+        <TextInput
+          value={commentText}
+          placeholder="Коментувати..."
+          cursorColor={accentColor}
+          style={styles.commentInput}
+          onChangeText={setCommentText}
+        />
+        <TouchableOpacity disabled={!commentText} style={styles.sendButton} onPress={onSendComment}>
+          <AntDesign name="arrowup" size={24} color={white} />
         </TouchableOpacity>
       </View>
     </View>

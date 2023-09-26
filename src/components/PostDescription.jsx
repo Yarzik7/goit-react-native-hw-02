@@ -6,10 +6,18 @@ import color from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
 
-const PostDescription = ({ label, coords, img, commentsCount = 0, likesCount = 0, location = 'Location' }) => {
+const PostDescription = ({
+  postId,
+  label,
+  coords,
+  img,
+  commentsCount = 0,
+  likesCount = 0,
+  location = 'Location',
+}) => {
   const navigator = useNavigation();
-  const navigateToComments = () => navigator.navigate('CommentsScreen', {img});
-  const navigateToMap = () => navigator.navigate('MapScreen', {label,coords,location});
+  const navigateToComments = () => navigator.navigate('CommentsScreen', { img, postId });
+  const navigateToMap = () => navigator.navigate('MapScreen', { label, coords, location });
 
   return (
     <View style={styles.descriptionContainer}>

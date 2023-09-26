@@ -7,6 +7,9 @@ import * as Location from 'expo-location';
 import { Feather } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from '../redux/auth/selectors';
+import { createPost } from '../redux/posts/operations';
 
 import color from '../constants/colors';
 const { white, primaryTextColor, buttonDisabledColor } = color;
@@ -17,6 +20,8 @@ const CreatePostsScreen = () => {
   const [postImageLocation, setPostImageLocation] = useState('');
   const [coords, setCoords] = useState(null);
 
+  const dispatch = useDispatch();
+  const { uid: author } = useSelector(selectUser);
   const navigation = useNavigation();
 
   const reset = () => {
@@ -50,8 +55,17 @@ const CreatePostsScreen = () => {
     } finally {
       setCoords(currentCoords);
 
-      const postData = { postImage, postName, postImageLocation, currentCoords };
+      const postData = {
+        postImage,
+        postName,
+        postImageLocation,
+        currentCoords,
+        author,
+        likesCount: 0,
+        commentsCount: 0,
+      };
       console.log(postData);
+      dispatch(createPost(postData));
       reset();
 
       navigation.navigate('PostsScreen');

@@ -1,9 +1,13 @@
 import { FlatList, StyleSheet } from 'react-native';
 import Comment from './Comment';
+import { selectComments } from '../redux/comments/selectors';
 
 import comments from '../data/commentsData';
+import { useSelector } from 'react-redux';
 
 const CommentsList = () => {
+  const commentsL = useSelector(selectComments);
+  console.log('CommentsList: ', commentsL);
   return (
     <FlatList
       data={comments}
