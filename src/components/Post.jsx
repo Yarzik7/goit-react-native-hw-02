@@ -5,20 +5,28 @@ import color from '../constants/colors';
 const { secondaryTextColor, backgroundColor } = color;
 
 const Post = ({
-  postInfo: { id, img = null, label = 'Post name', commentsCount, likesCount, location, coords },
+  postInfo: {
+    id,
+    postImage = null,
+    postName = 'Post name',
+    commentsCount,
+    likesCount,
+    postImageLocation,
+    currentCoords,
+  },
 }) => {
   return (
     <View style={styles.postContainer}>
-      <Image source={{ uri: img }} resizeMode="cover" style={styles.postImage} />
-      <Text style={styles.postCaption}>{label}</Text>
+      <Image source={{ uri: postImage }} resizeMode="cover" style={styles.postImage} />
+      <Text style={styles.postCaption}>{postName}</Text>
       <PostDescription
         postId={id}
-        img={img}
+        img={postImage}
         commentsCount={commentsCount}
         likesCount={likesCount}
-        location={location}
-        label={label}
-        coords={coords}
+        location={postImageLocation}
+        label={postName}
+        coords={currentCoords}
       />
     </View>
   );

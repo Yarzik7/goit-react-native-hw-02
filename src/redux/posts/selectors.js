@@ -1,3 +1,3 @@
-const selectPosts = state => state.posts.items;
+const selectPosts = state => state.posts;
 
 export { selectPosts };

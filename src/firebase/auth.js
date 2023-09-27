@@ -41,11 +41,8 @@ const updateUserProfile = async update => {
 
 const loginDB = async ({ email, password }) => {
   try {
-    const {
-      user: { displayName, email: userEmail, photoURL, uid },
-    } = await signInWithEmailAndPassword(auth, email, password);
-    console.log({ displayName, userEmail, photoURL, uid });
-    return;
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    return user;
   } catch (error) {
     throw error;
   }

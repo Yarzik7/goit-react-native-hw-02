@@ -5,16 +5,17 @@ import AuthAction from '../components/AuthAction';
 import AuthLayout from '../components/AuthLayout';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../redux/auth/selectors';
 import { useLoggedInRedirect } from '../hooks/useIsLoggedInRedirect';
-
+import { logIn } from '../redux/auth/operations';
 import { loginDB } from '../firebase/auth';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   // const navigation = useNavigation();
@@ -32,8 +33,10 @@ const LoginScreen = () => {
     }
     const userData = { email, password };
     console.log(userData);
-    await loginDB(userData);
+    dispatch(logIn(userData));
     reset();
+    // await loginDB(userData);
+
     // navigation.navigate('BottomTabs', {
     //   screen: 'PostsNavigator',
     //   params: { screen: 'PostsScreen', params: userData },

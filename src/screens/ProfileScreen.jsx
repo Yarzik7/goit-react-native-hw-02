@@ -5,9 +5,24 @@ import PostsList from '../components/PostsList';
 import Avatar from '../components/Avatar';
 import Title from '../components/Title';
 import { useState } from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import { getPosts } from '../redux/posts/operations';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { selectUser } from '../redux/auth/selectors';
 
 const ProfileScreen = ({ userName = 'Name' }) => {
   const [avatarPath, setAvatarPath] = useState(null);
+  // const isFocused = useIsFocused();
+  // const dispatch = useDispatch();
+  // const { uid } = useSelector(selectUser);
+  // console.log(uid);
+  // useEffect(() => {
+  //   if (isFocused) {
+  //     dispatch(getPosts(uid));
+  //   }
+  // }, [isFocused]);
+
   return (
     <ImageBackgroundLayout>
       <Avatar avatarPath={avatarPath} setAvatarPath={setAvatarPath} />

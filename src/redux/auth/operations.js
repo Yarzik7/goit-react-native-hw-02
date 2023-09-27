@@ -13,8 +13,8 @@ const register = createAsyncThunk('auth/register', async (credentials, thunkAPI)
 
 const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
   try {
-    const res = await loginDB(credentials);
-    return res.user;
+    const { uid, displayName, email, photoURL } = await loginDB(credentials);
+    return { uid, displayName, email, photoURL };
   } catch (e) {
     const { status, message } = e.toJSON();
     return thunkAPI.rejectWithValue({ status, message });

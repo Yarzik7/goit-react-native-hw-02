@@ -1,4 +1,14 @@
-import { collection, addDoc, updateDoc, doc, getDoc, getDocs, runTransaction } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  getDoc,
+  getDocs,
+  runTransaction,
+  where,
+  query,
+} from 'firebase/firestore';
 import { db } from '../../config';
 
 const writeDataToFirestore = async (route, data) => {
@@ -11,13 +21,12 @@ const writeDataToFirestore = async (route, data) => {
   }
 };
 
-const getDataFromFirestore = async route => {
+const getDataFromFirestore = async (route, author) => {
+  const collectionRef = collection(db, route);
+  const queryOptions = author && query(collectionRef, where('author', '==', author));
   try {
-    const snapshot = await getDocs(collection(db, 'users'));
-    // Перевіряємо у консолі отримані дані
-    snapshot.forEach(doc => console.log(`${doc.id} =>`, doc.data()));
-    // Повертаємо масив обʼєктів у довільній формі
-    return snapshot.map(doc => ({ id: doc.id, data: doc.data() }));
+    const snapshot = await getDocs(queryOptions || collectionRef);
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.log(error);
     throw error;

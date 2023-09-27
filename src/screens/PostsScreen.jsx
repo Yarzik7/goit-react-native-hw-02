@@ -1,15 +1,25 @@
 import { View, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useIsFocused, useRoute } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../redux/auth/selectors';
 import UserInfo from '../components/UserInfo';
 import PostsList from '../components/PostsList';
 import { auth } from '../../config';
 
 import colors from '../constants/colors';
+import { useEffect } from 'react';
+import { getPosts } from '../redux/posts/operations';
 const { white } = colors;
 
 const PostsScreen = () => {
+  // const isFocused = useIsFocused();
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   if (isFocused) {
+  //     dispatch(getPosts());
+  //   }
+  // }, [isFocused]);
+
   // const displayName = 'login',
   //   email = 'email',
   //   photoURL = null;
