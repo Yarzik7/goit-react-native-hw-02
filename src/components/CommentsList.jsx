@@ -1,18 +1,25 @@
 import { FlatList, StyleSheet } from 'react-native';
 import Comment from './Comment';
 import { selectComments } from '../redux/comments/selectors';
-
 import comments from '../data/commentsData';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { getPostCommentsOperation } from '../redux/comments/operations';
 
-const CommentsList = () => {
+const CommentsList = ({ postId }) => {
+  const dispatch = useDispatch();
   const commentsL = useSelector(selectComments);
   console.log('CommentsList: ', commentsL);
+
+  // useEffect(() => {
+  //   dispatch(getPostCommentsOperation(postId));
+  // }, [postId]);
+
   return (
     <FlatList
-      data={comments}
-      renderItem={({ item: { text, userAvatar, date, author } }) => (
-        <Comment text={text} userAvatar={userAvatar} date={date} author={author} />
+      data={commentsL}
+      renderItem={({ item: { commentText, photoURL, date, author } }) => (
+        <Comment text={commentText} photoURL={photoURL} date={date} author={author} />
       )}
       keyExtractor={item => item.id}
       showsVerticalScrollIndicator={false}

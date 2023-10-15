@@ -1,9 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { writeDataToFirestore, onIncrementCommentCount } from '../../firebase/firestore';
+import {
+  writeDataToFirestore,
+  onIncrementCommentCount,
+  getDataFromFirestore,
+} from '../../firebase/firestore';
+import { handleErrorAsyncOperation } from '../../helpers/handleErrorAsyncOperation';
+
+const getPostCommentsOperation = createAsyncThunk('comments/getComments', async (postId, thunkAPI) => {
+  return await handleErrorAsyncOperation(async () => {
+    const comments = await getDataFromFirestore({ route: 'comments', field: 'postId', value: postId });
+    console.log('comments: ', comments);
+    return comments;
+  }, thunkAPI);
+});
+
 const createComment = createAsyncThunk('comments/create', async (commentInfo, thunkAPI) => {
   try {
     const comment = await writeDataToFirestore('comments', commentInfo);
-    await onIncrementCommentCount('SAfmAWghLmUMPhRO7rBi');
+    await onIncrementCommentCount(commentInfo.postId);
     return comment;
   } catch (e) {
     const { status, message } = e.toJSON();
@@ -11,4 +25,4 @@ const createComment = createAsyncThunk('comments/create', async (commentInfo, th
   }
 });
 
-export { createComment };
+export { createComment, getPostCommentsOperation };

@@ -3,12 +3,12 @@ const { View, Text, Image, StyleSheet } = require('react-native');
 import colors from '../constants/colors';
 const { commentContainerBackground, secondaryTextColor, primaryTextColor, backgroundColor } = colors;
 
-const Comment = ({ userAvatar = null, text, date, author }) => {
+const Comment = ({ photoURL = null, text, date, author }) => {
   isCurrentUser = author === 'current';
 
   return (
     <View style={[styles.commentContainer, isCurrentUser && styles.commentCurrentUser]}>
-      <Image source={{ uri: userAvatar }} resizeMode="cover" style={styles.userAvatar} />
+      <Image source={{ uri: photoURL }} resizeMode="cover" style={styles.userAvatar} />
       <View style={styles.textContainer}>
         <Text style={styles.text}>{text}</Text>
         <Text style={[styles.dateText, isCurrentUser && styles.currentUserDate]}>{date}</Text>

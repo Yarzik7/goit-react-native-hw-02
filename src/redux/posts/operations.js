@@ -3,7 +3,7 @@ import { writeDataToFirestore, getDataFromFirestore } from '../../firebase/fires
 
 const getPosts = createAsyncThunk('posts/get', async (author, thunkAPI) => {
   try {
-    const posts = await getDataFromFirestore('posts', author);
+    const posts = await getDataFromFirestore({ route: 'posts', field: 'author', value: author });
     return posts;
   } catch (e) {
     const { status, message } = e.toJSON();

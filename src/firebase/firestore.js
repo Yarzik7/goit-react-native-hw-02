@@ -21,11 +21,12 @@ const writeDataToFirestore = async (route, data) => {
   }
 };
 
-const getDataFromFirestore = async (route, author) => {
+const getDataFromFirestore = async ({ route, field = '', value = '' }) => {
   const collectionRef = collection(db, route);
-  const queryOptions = author && query(collectionRef, where('author', '==', author));
+  const queryOptions = value && query(collectionRef, where(field, '==', value));
   try {
     const snapshot = await getDocs(queryOptions || collectionRef);
+    // console.log('Collection: ', snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.log(error);
