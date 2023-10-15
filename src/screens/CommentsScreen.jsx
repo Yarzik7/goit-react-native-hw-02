@@ -7,13 +7,10 @@ import { createComment, getPostCommentsOperation } from '../redux/comments/opera
 import { selectUser } from '../redux/auth/selectors';
 import moment from 'moment/moment';
 import 'moment/locale/uk';
-// require('moment-locale-uk');
 
 import colors from '../constants/colors';
 import { useDispatch, useSelector } from 'react-redux';
 const { white, backgroundColor, secondaryTextColor, borderColor, accentColor } = colors;
-
-// moment.locale('uk');
 
 const CommentsScreen = () => {
   const [commentText, setCommentText] = useState('');
