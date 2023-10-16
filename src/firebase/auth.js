@@ -6,6 +6,7 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth } from '../../config';
+import { imagesProcessing } from './firestore';
 
 const logOut = async () => {
   signOut(auth)
@@ -30,9 +31,15 @@ const authStateChanged = async (onChange = () => {}) => {
 const updateUserProfile = async update => {
   const user = auth.currentUser;
   if (user) {
+    let image = null;
+    if (update.photoURL) {
+      console.log('In if updProf: ', update.photoURL);
+      image = await imagesProcessing(update.photoURL);
+    }
     try {
       await updateProfile(user, update);
-      console.log('Користувача було оновлено');
+      console.log('Користувача було оновлено: ');
+      return update;
     } catch (error) {
       throw error;
     }
@@ -48,10 +55,10 @@ const loginDB = async ({ email, password }) => {
   }
 };
 
-const registerDB = async ({ email, password, login: displayName }) => {
+const registerDB = async ({ email, password, login: displayName, avatarPath: photoURL = null }) => {
   await createUserWithEmailAndPassword(auth, email, password);
   console.log('Користувача зареєстровано');
-  await updateUserProfile({ displayName });
+  await updateUserProfile({ displayName, photoURL });
   await loginDB({ email, password });
   console.log('Спроба увійти в систему була успішною');
   // await authStateChanged();

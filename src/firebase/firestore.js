@@ -9,10 +9,32 @@ import {
   where,
   query,
 } from 'firebase/firestore';
-import { db } from '../../config';
+import { ref, uploadBytes } from 'firebase/storage';
+import { db, storage } from '../../config';
+import { uriToBlob } from '../helpers/uriToBlob';
+
+const imagesProcessing = async image => {
+  const blobImage = await uriToBlob(image);
+  const storageRef = ref(storage, blobImage._data.name);
+  console.log('aft ref: ', storageRef);
+
+  console.log('blobImg: ', blobImage);
+
+  try {
+    const snapshot = await uploadBytes(storageRef, blobImage);
+    console.log('Файл успішно завантажено', snapshot);
+  } catch (error) {
+    console.error('Сталася помилка під час завантаження файлу', error);
+  }
+};
 
 const writeDataToFirestore = async (route, data) => {
+  let image = null;
   try {
+    if (data.postImage) {
+      image = await imagesProcessing(data.postImage);
+    }
+
     const { id } = await addDoc(collection(db, route), data);
     return { id, ...data };
   } catch (e) {
@@ -63,4 +85,52 @@ const onIncrementCommentCount = async postId => {
   }
 };
 
-export { updateDataInFirestore, getDataFromFirestore, writeDataToFirestore, onIncrementCommentCount };
+// /**
+//  * Function to convert a URI to a Blob object
+//  * @param {string} uri - The URI of the file
+//  * @returns {Promise} - Returns a promise that resolves with the Blob object
+//  */
+// export function uriToBlob(uri) {
+//   return new Promise((resolve, reject) => {
+//     const xhr = new XMLHttpRequest();
+//     // If successful -> return with blob
+//     xhr.onload = function () {
+//       resolve(xhr.response);
+//     };
+//     // reject on error
+//     xhr.onerror = function () {
+//       reject(new Error('uriToBlob failed'));
+//     };
+
+//     // Set the response type to ‘blob’ - this means the server’s response
+//     // will be accessed as a binary object
+//     xhr.responseType = 'blob';
+
+//     // Initialize the request. The third argument set to ‘true’ denotes
+//     // that the request is asynchronous
+//     xhr.open('GET', uri, true);
+
+//     // Send the request. The ‘null’ argument means that no body content is given for the request
+//     xhr.send(null);
+//   });
+// }
+
+export function makePath(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
+
+export {
+  updateDataInFirestore,
+  getDataFromFirestore,
+  writeDataToFirestore,
+  onIncrementCommentCount,
+  imagesProcessing,
+};

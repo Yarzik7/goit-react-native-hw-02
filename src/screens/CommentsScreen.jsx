@@ -5,6 +5,7 @@ import CommentsList from '../components/CommentsList';
 import { useState, useEffect } from 'react';
 import { createComment, getPostCommentsOperation } from '../redux/comments/operations';
 import { selectUser } from '../redux/auth/selectors';
+import { commentsClear } from '../redux/comments/commentsSlice';
 import moment from 'moment/moment';
 import 'moment/locale/uk';
 
@@ -25,7 +26,7 @@ const CommentsScreen = () => {
   useEffect(() => {
     dispatch(getPostCommentsOperation(postId));
 
-    // return ()=>dispatch(commentClearAction())
+    return () => dispatch(commentsClear());
   }, [postId]);
 
   const onSendComment = () => {

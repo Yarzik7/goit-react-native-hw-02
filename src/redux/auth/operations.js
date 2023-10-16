@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { registerDB, loginDB, logOut, updateUserProfile } from '../../firebase/auth';
+import { handleErrorAsyncOperation } from '../../helpers/handleErrorAsyncOperation';
 
 const register = createAsyncThunk('auth/register', async (credentials, thunkAPI) => {
   try {
@@ -30,13 +31,11 @@ const logOutUser = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
-const updateUser = createAsyncThunk('auth/refresh', async (updateData, thunkAPI) => {
-  try {
-    const res = await updateUserProfile(updateData);
-  } catch (e) {
-    const { status, message } = e.toJSON();
-    return thunkAPI.rejectWithValue({ status, message });
-  }
+const updateUserData = createAsyncThunk('auth/updateUserData', async (updateData, thunkAPI) => {
+  return await handleErrorAsyncOperation(async () => {
+    const data = await updateUserProfile(updateData);
+    return data;
+  }, thunkAPI);
 });
 
-export { register, logIn, logOutUser, updateUser };
+export { register, logIn, logOutUser, updateUserData };

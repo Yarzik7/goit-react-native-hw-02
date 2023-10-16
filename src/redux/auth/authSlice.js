@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
-import { register, logIn, logOutUser, updateUser } from './operations';
+import { register, logIn, logOutUser, updateUserData } from './operations';
 import * as authReducers from '../../helpers/reduxActionHandlers/authActionHandlers';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
   user: { uid: null, displayName: null, email: null, photoURL: null },
   isAuthLoading: false,
+  isUpdatingUserData: false,
   isLoggedIn: false,
   error: null,
 };
@@ -29,7 +30,10 @@ const authSlice = createSlice({
       .addCase(logIn.rejected, authReducers.handleLoginRejected)
       .addCase(logOutUser.pending, authReducers.handleAuthActionPending)
       .addCase(logOutUser.fulfilled, authReducers.handleLogoutFulfilled)
-      .addCase(logOutUser.rejected, authReducers.handleLogoutRejected),
+      .addCase(logOutUser.rejected, authReducers.handleLogoutRejected)
+      .addCase(updateUserData.pending, authReducers.handleUpdateUserPending)
+      .addCase(updateUserData.fulfilled, authReducers.handleUpdateUserFulfilled)
+      .addCase(updateUserData.rejected, authReducers.handleUpdateUserRejected),
 });
 
 // const authSlice = createSlice({

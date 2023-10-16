@@ -9,7 +9,6 @@ import { handleErrorAsyncOperation } from '../../helpers/handleErrorAsyncOperati
 const getPostCommentsOperation = createAsyncThunk('comments/getComments', async (postId, thunkAPI) => {
   return await handleErrorAsyncOperation(async () => {
     const comments = await getDataFromFirestore({ route: 'comments', field: 'postId', value: postId });
-    console.log('comments: ', comments);
     return comments;
   }, thunkAPI);
 });

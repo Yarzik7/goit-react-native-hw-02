@@ -1,10 +1,13 @@
 const { View, Text, Image, StyleSheet } = require('react-native');
 
+import { selectUser } from '../redux/auth/selectors';
 import colors from '../constants/colors';
+import { useSelector } from 'react-redux';
 const { commentContainerBackground, secondaryTextColor, primaryTextColor, backgroundColor } = colors;
 
 const Comment = ({ photoURL = null, text, date, author }) => {
-  isCurrentUser = author === 'current';
+  const { uid } = useSelector(selectUser);
+  isCurrentUser = author === uid;
 
   return (
     <View style={[styles.commentContainer, isCurrentUser && styles.commentCurrentUser]}>

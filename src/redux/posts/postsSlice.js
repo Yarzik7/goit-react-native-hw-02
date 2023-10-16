@@ -1,22 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createPost, getPosts } from './operations';
-import { handleRejected } from '../../helpers/extraReducerHandlers';
+import * as postsReducers from '../../helpers/reduxActionHandlers/postsActionHandlers';
 
 const initialState = {
   items: [],
+  isPostsLoading: false,
+  error: null,
 };
 
 const postsSlice = createSlice({
   name: 'posts',
   initialState,
-  extraReducers: build =>
-    build
-      .addCase(createPost.fulfilled, (state, { payload }) => {
-        state.items.push(payload);
-      })
-      .addCase(getPosts.fulfilled, (state, { payload }) => {
-        state.items = payload;
-      }),
+  extraReducers: builder =>
+    builder
+      .addCase(createPost.pending, postsReducers.handlePostsActionPending)
+      .addCase(createPost.fulfilled, postsReducers.handleCreatePostFulfilled)
+      .addCase(createPost.rejected, postsReducers.handleCreatePostRejected)
+      .addCase(getPosts.pending, postsReducers.handlePostsActionPending)
+      .addCase(getPosts.fulfilled, postsReducers.handleGetPostsFulfilled)
+      .addCase(getPosts.rejected, postsReducers.handleGetPostsRejected),
 });
 
 export const postsReducer = postsSlice.reducer;
