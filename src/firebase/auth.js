@@ -31,10 +31,13 @@ const authStateChanged = async (onChange = () => {}) => {
 const updateUserProfile = async update => {
   const user = auth.currentUser;
   if (user) {
+    console.log('User: ', user.uid);
     let image = null;
     if (update.photoURL) {
       console.log('In if updProf: ', update.photoURL);
-      image = await imagesProcessing(update.photoURL);
+      image = await imagesProcessing(update.photoURL, 'avatars/', user.uid + 'Avatar');
+      console.log('ImgAv: ', image);
+      update.photoURL = image;
     }
     try {
       await updateProfile(user, update);

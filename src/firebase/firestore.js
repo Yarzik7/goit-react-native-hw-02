@@ -9,20 +9,21 @@ import {
   where,
   query,
 } from 'firebase/firestore';
-import { ref, uploadBytes } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../config';
 import { uriToBlob } from '../helpers/uriToBlob';
 
-const imagesProcessing = async image => {
+const imagesProcessing = async (image, storeFolder, id) => {
   const blobImage = await uriToBlob(image);
-  const storageRef = ref(storage, blobImage._data.name);
-  console.log('aft ref: ', storageRef);
-
-  console.log('blobImg: ', blobImage);
+  const filePath = storeFolder + (id || blobImage._data.name);
+  const storageRef = ref(storage, filePath);
 
   try {
     const snapshot = await uploadBytes(storageRef, blobImage);
     console.log('Файл успішно завантажено', snapshot);
+    const url = await getDownloadURL(storageRef);
+    console.log('Url: ', url);
+    return url;
   } catch (error) {
     console.error('Сталася помилка під час завантаження файлу', error);
   }
@@ -32,7 +33,9 @@ const writeDataToFirestore = async (route, data) => {
   let image = null;
   try {
     if (data.postImage) {
-      image = await imagesProcessing(data.postImage);
+      image = await imagesProcessing(data.postImage, 'postImages/');
+      console.log('Img: ', image);
+      data.postImage = image;
     }
 
     const { id } = await addDoc(collection(db, route), data);
