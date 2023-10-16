@@ -3,7 +3,7 @@ import Comment from './Comment';
 import { selectComments } from '../redux/comments/selectors';
 // import comments from '../data/commentsData';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { getPostCommentsOperation } from '../redux/comments/operations';
 
 const CommentsList = ({ postId }) => {

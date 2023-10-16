@@ -11,11 +11,9 @@ import { imagesProcessing } from './firestore';
 const logOut = async () => {
   signOut(auth)
     .then(async () => {
-      // Користувач успішно вийшов з системи
       console.log('Користувач вийшов з системи ', await authStateChanged());
     })
     .catch(error => {
-      // Помилка при виході з системи
       console.error('Помилка при виході з системи:', error);
     });
 };
@@ -64,7 +62,7 @@ const registerDB = async ({ email, password, login: displayName, avatarPath: pho
   await updateUserProfile({ displayName, photoURL });
   await loginDB({ email, password });
   console.log('Спроба увійти в систему була успішною');
-  // await authStateChanged();
+  await authStateChanged();
 
   const registeredUserData = {
     displayName: auth.currentUser.displayName,

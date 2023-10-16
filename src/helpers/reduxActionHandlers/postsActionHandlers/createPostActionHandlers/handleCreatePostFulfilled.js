@@ -1,5 +1,5 @@
 export const handleCreatePostFulfilled = (state, { payload }) => {
-  state.isPostsLoading = false;
+  state.isCreatingPost = false;
   state.error = null;
-  // state.items.push(payload);
+  state.items.push(payload);
 };

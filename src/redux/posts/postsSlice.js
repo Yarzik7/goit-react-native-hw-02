@@ -5,6 +5,7 @@ import * as postsReducers from '../../helpers/reduxActionHandlers/postsActionHan
 const initialState = {
   items: [],
   isPostsLoading: false,
+  isCreatingPost: false,
   error: null,
 };
 
@@ -13,7 +14,7 @@ const postsSlice = createSlice({
   initialState,
   extraReducers: builder =>
     builder
-      .addCase(createPost.pending, postsReducers.handlePostsActionPending)
+      .addCase(createPost.pending, postsReducers.handleCreatePostPending)
       .addCase(createPost.fulfilled, postsReducers.handleCreatePostFulfilled)
       .addCase(createPost.rejected, postsReducers.handleCreatePostRejected)
       .addCase(getPosts.pending, postsReducers.handlePostsActionPending)

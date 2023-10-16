@@ -9,9 +9,12 @@ import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../redux/auth/selectors';
+import { selectIsCreatingPost } from '../redux/posts/selectors';
 import { createPost } from '../redux/posts/operations';
+import ScreenLoader from '../components/Loaders/ScreenLoader';
 
 import color from '../constants/colors';
+
 const { white, primaryTextColor, buttonDisabledColor } = color;
 
 const CreatePostsScreen = () => {
@@ -23,6 +26,7 @@ const CreatePostsScreen = () => {
   const dispatch = useDispatch();
   const { uid: author } = useSelector(selectUser);
   const navigation = useNavigation();
+  const isCreatingPost = useSelector(selectIsCreatingPost);
 
   const reset = () => {
     setPostImage(null);
@@ -64,11 +68,12 @@ const CreatePostsScreen = () => {
         likesCount: 0,
         commentsCount: 0,
       };
-      console.log(postData);
-      dispatch(createPost(postData));
-      reset();
 
-      navigation.navigate('PostsScreen');
+      const res = await dispatch(createPost(postData));
+      if (res.meta.requestStatus === 'fulfilled') {
+        reset();
+        navigation.navigate('PostsScreen');
+      }
     }
   };
 
@@ -94,6 +99,7 @@ const CreatePostsScreen = () => {
           <Feather name="trash-2" size={24} color={primaryTextColor} />
         </TouchableOpacity>
       </View>
+      {isCreatingPost && <ScreenLoader />}
     </KeyboardLayout>
   );
 };

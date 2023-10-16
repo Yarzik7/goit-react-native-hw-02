@@ -1,3 +1,3 @@
 export const handleCreatePostPending = state => {
-  state.isPostsLoading = true;
+  state.isCreatingPost = true;
 };

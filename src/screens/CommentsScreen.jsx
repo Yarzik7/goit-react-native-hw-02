@@ -1,11 +1,14 @@
-import { View, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Image, TextInput, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import CommentsList from '../components/CommentsList';
 import { useState, useEffect } from 'react';
 import { createComment, getPostCommentsOperation } from '../redux/comments/operations';
 import { selectUser } from '../redux/auth/selectors';
+import { selectCommentsOperations } from '../redux/comments/selectors';
 import { commentsClear } from '../redux/comments/commentsSlice';
+import SendCommentLoader from '../components/Loaders/SendCommentLoader';
+import ScreenLoader from '../components/Loaders/ScreenLoader';
 import moment from 'moment/moment';
 import 'moment/locale/uk';
 
@@ -18,6 +21,7 @@ const CommentsScreen = () => {
 
   const dispatch = useDispatch();
   const { uid: author, photoURL } = useSelector(selectUser);
+  const { isCommentsLoading, isCreatingComment } = useSelector(selectCommentsOperations);
 
   const {
     params: { img, postId },
@@ -29,7 +33,7 @@ const CommentsScreen = () => {
     return () => dispatch(commentsClear());
   }, [postId]);
 
-  const onSendComment = () => {
+  const onSendComment = async () => {
     const commentData = {
       author,
       commentText,
@@ -37,29 +41,36 @@ const CommentsScreen = () => {
       date: moment().locale('uk').format('DD MMMM, YYYY | HH:mm'),
       photoURL,
     };
-    setCommentText('');
-    dispatch(createComment(commentData));
+
+    const res = await dispatch(createComment(commentData));
+    if (res.meta.requestStatus === 'fulfilled') {
+      setCommentText('');
+      Keyboard.dismiss();
+    }
   };
 
   return (
-    <View style={styles.commentsScreenContainer}>
-      <Image source={{ uri: img }} resizeMode="cover" style={styles.postImage} />
+    <>
+      <View style={styles.commentsScreenContainer}>
+        <Image source={{ uri: img }} resizeMode="cover" style={styles.postImage} />
 
-      <CommentsList postId={postId} />
+        <CommentsList postId={postId} />
 
-      <View>
-        <TextInput
-          value={commentText}
-          placeholder="Коментувати..."
-          cursorColor={accentColor}
-          style={styles.commentInput}
-          onChangeText={setCommentText}
-        />
-        <TouchableOpacity disabled={!commentText} style={styles.sendButton} onPress={onSendComment}>
-          <AntDesign name="arrowup" size={24} color={white} />
-        </TouchableOpacity>
+        <View>
+          <TextInput
+            value={commentText}
+            placeholder="Коментувати..."
+            cursorColor={accentColor}
+            style={styles.commentInput}
+            onChangeText={setCommentText}
+          />
+          <TouchableOpacity disabled={!commentText} style={styles.sendButton} onPress={onSendComment}>
+            {isCreatingComment ? <SendCommentLoader /> : <AntDesign name="arrowup" size={24} color={white} />}
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+      {isCommentsLoading && <ScreenLoader />}
+    </>
   );
 };
 

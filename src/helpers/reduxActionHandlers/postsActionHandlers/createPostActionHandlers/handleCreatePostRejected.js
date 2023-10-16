@@ -1,4 +1,4 @@
 export const handleCreatePostRejected = (state, { payload }) => {
-  state.isPostsLoading = false;
+  state.isCreatingPost = false;
   state.error = payload;
 };

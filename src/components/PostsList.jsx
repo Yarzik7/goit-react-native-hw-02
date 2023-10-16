@@ -1,15 +1,14 @@
 import { FlatList, StyleSheet } from 'react-native';
 import Post from './Post';
-// import posts from '../data/postsData';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPosts } from '../redux/posts/selectors';
 import { selectUser } from '../redux/auth/selectors';
 import { useEffect } from 'react';
 import { getPosts } from '../redux/posts/operations';
-import { useRoute, getFocusedRouteNameFromRoute, useIsFocused } from '@react-navigation/native';
+import { useRoute, useIsFocused } from '@react-navigation/native';
 
 const PostsList = () => {
-  const { items: posts } = useSelector(selectPosts);
+  const posts = useSelector(selectPosts);
   const { uid } = useSelector(selectUser);
   const dispatch = useDispatch();
   const { name } = useRoute();
@@ -17,7 +16,9 @@ const PostsList = () => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    dispatch(getPosts());
+    if (!posts.length) {
+      dispatch(getPosts());
+    }
   }, [isFocused, name]);
 
   const postsForRender = () => (name === 'ProfileScreen' ? posts.filter(post => post.author === uid) : posts);

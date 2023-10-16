@@ -1,3 +1,5 @@
-const selectPosts = state => state.posts;
+const selectPosts = state => state.posts.items;
+const selectIsPostsLoading = state => state.posts.isPostsLoading;
+const selectIsCreatingPost = state => state.posts.isCreatingPost;
 
-export { selectPosts };
+export { selectPosts, selectIsPostsLoading, selectIsCreatingPost };
