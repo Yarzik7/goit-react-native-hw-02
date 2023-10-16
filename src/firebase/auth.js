@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   updateProfile,
   signOut,
+  signInWithCustomToken
 } from 'firebase/auth';
 import { auth } from '../../config';
 import { imagesProcessing } from './firestore';
