@@ -5,12 +5,15 @@
 
 // Для роботи із firebase обовʼязково треба ініціалізувати проект
 import { initializeApp } from 'firebase/app';
+// import {getReactNativePersistence} from "@firebase/auth/react-native"
 // Функція для підключення авторизації в проект
 import { getAuth } from 'firebase/auth';
 // Функція для підключення бази даних у проект
 import { getFirestore } from 'firebase/firestore';
 // Функція для підключення сховища файлів в проект
 import { getStorage } from 'firebase/storage';
+
+// console.log('geReact', getReactNativePersistence);
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAP0u4pFTzmVk5FM-TQD900CUTT1LJzhAg',

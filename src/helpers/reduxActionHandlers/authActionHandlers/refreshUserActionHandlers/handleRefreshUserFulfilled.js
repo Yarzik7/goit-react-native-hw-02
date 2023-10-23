@@ -1,5 +1,6 @@
 export const handleRefreshUserFulfilled = (state, { payload }) => {
-  state.user = payload.currentUser;
+  state.user = payload.user;
+  state.token = payload.token;
   state.isLoggedIn = true;
   state.isAuthLoading = false;
   state.isRefreshingUser = false;

@@ -4,7 +4,7 @@ import {
   onAuthStateChanged,
   updateProfile,
   signOut,
-  signInWithCustomToken
+  signInWithCustomToken,
 } from 'firebase/auth';
 import { auth } from '../../config';
 import { imagesProcessing } from './firestore';
@@ -51,6 +51,7 @@ const updateUserProfile = async update => {
 const loginDB = async ({ email, password }) => {
   try {
     const { user } = await signInWithEmailAndPassword(auth, email, password);
+    console.log('User: ', user);
     return user;
   } catch (error) {
     throw error;
@@ -66,13 +67,33 @@ const registerDB = async ({ email, password, login: displayName, avatarPath: pho
   await authStateChanged();
 
   const registeredUserData = {
-    displayName: auth.currentUser.displayName,
-    email: auth.currentUser.email,
-    photoURL: auth.currentUser.photoURL,
-    uid: auth.currentUser.uid,
+    user: {
+      displayName: auth.currentUser.displayName,
+      email: auth.currentUser.email,
+      photoURL: auth.currentUser.photoURL,
+      uid: auth.currentUser.uid,
+    },
+    token: auth.currentUser.stsTokenManager.refreshToken,
   };
 
   return registeredUserData;
 };
 
-export { registerDB, loginDB, authStateChanged, updateUserProfile, logOut };
+const authWithToken = async token => {
+  const res = await signInWithCustomToken(auth, token).catch(error => {
+    console.log('Error by refresh user: ', error);
+  });
+
+  console.log('Авторизація успішна! ', res);
+  return {
+    user: {
+      displayName: auth.currentUser.displayName,
+      email: auth.currentUser.email,
+      photoURL: auth.currentUser.photoURL,
+      uid: auth.currentUser.uid,
+    },
+    token: auth.currentUser.stsTokenManager.refreshToken,
+  };
+};
+
+export { registerDB, loginDB, authStateChanged, updateUserProfile, logOut, authWithToken };
