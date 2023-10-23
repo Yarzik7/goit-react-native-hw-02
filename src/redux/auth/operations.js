@@ -14,8 +14,14 @@ const register = createAsyncThunk('auth/register', async (credentials, thunkAPI)
 
 const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
   try {
-    const { uid, displayName, email, photoURL, stsTokenManager:{refreshToken} } = await loginDB(credentials);
-    return { user: {uid, displayName, email, photoURL}, token: refreshToken };
+    const {
+      uid,
+      displayName,
+      email,
+      photoURL,
+      stsTokenManager: { accessToken },
+    } = await loginDB(credentials);
+    return { user: { uid, displayName, email, photoURL }, token: accessToken };
   } catch (e) {
     const { status, message } = e.toJSON();
     return thunkAPI.rejectWithValue({ status, message });
@@ -41,6 +47,8 @@ const updateUserData = createAsyncThunk('auth/updateUserData', async (updateData
 const refreshUser = createAsyncThunk('auth/refreshUser', async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   const persistedToken = state.auth.token;
+
+  console.log('pT ', persistedToken);
 
   if (persistedToken === null) {
     return thunkAPI.rejectWithValue({ status: 401, message: 'Please login or register!' });

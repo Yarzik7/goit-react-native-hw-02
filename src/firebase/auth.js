@@ -5,6 +5,7 @@ import {
   updateProfile,
   signOut,
   signInWithCustomToken,
+  getAuth,
 } from 'firebase/auth';
 import { auth } from '../../config';
 import { imagesProcessing } from './firestore';
@@ -73,13 +74,14 @@ const registerDB = async ({ email, password, login: displayName, avatarPath: pho
       photoURL: auth.currentUser.photoURL,
       uid: auth.currentUser.uid,
     },
-    token: auth.currentUser.stsTokenManager.refreshToken,
+    token: auth.currentUser.stsTokenManager.accessToken,
   };
 
   return registeredUserData;
 };
 
 const authWithToken = async token => {
+  const auth = getAuth();
   const res = await signInWithCustomToken(auth, token).catch(error => {
     console.log('Error by refresh user: ', error);
   });
@@ -92,7 +94,7 @@ const authWithToken = async token => {
       photoURL: auth.currentUser.photoURL,
       uid: auth.currentUser.uid,
     },
-    token: auth.currentUser.stsTokenManager.refreshToken,
+    token: auth.currentUser.stsTokenManager.accessToken,
   };
 };
 

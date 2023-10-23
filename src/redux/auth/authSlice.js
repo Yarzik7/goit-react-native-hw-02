@@ -7,16 +7,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const initialState = {
   user: { uid: null, displayName: null, email: null, photoURL: null },
   isAuthLoading: false,
-  isRefreshingUser: false,
+  // isRefreshingUser: false,
   isUpdatingUserData: false,
   isLoggedIn: false,
   error: null,
-  token: null,
+  // token: null,
 };
 
 const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
+  // whitelist: ['token'],
 };
 
 const authSlice = createSlice({
@@ -35,10 +36,10 @@ const authSlice = createSlice({
       .addCase(logOutUser.rejected, authReducers.handleLogoutRejected)
       .addCase(updateUserData.pending, authReducers.handleUpdateUserPending)
       .addCase(updateUserData.fulfilled, authReducers.handleUpdateUserFulfilled)
-      .addCase(updateUserData.rejected, authReducers.handleUpdateUserRejected)
-      .addCase(refreshUser.pending, authReducers.handleRefreshUserPending)
-      .addCase(refreshUser.fulfilled, authReducers.handleRefreshUserFulfilled)
-      .addCase(refreshUser.rejected, authReducers.handleRefreshUserRejected),
+      .addCase(updateUserData.rejected, authReducers.handleUpdateUserRejected),
+  // .addCase(refreshUser.pending, authReducers.handleRefreshUserPending)
+  // .addCase(refreshUser.fulfilled, authReducers.handleRefreshUserFulfilled)
+  // .addCase(refreshUser.rejected, authReducers.handleRefreshUserRejected),
 });
 
 // const authSlice = createSlice({

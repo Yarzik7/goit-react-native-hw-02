@@ -10,6 +10,7 @@ import { selectIsLoggedIn } from '../redux/auth/selectors';
 import { useLoggedInRedirect } from '../hooks/useIsLoggedInRedirect';
 import { logIn } from '../redux/auth/operations';
 import { loginDB } from '../firebase/auth';
+import ScreenLoader from '../components/Loaders/ScreenLoader';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -17,6 +18,7 @@ const LoginScreen = () => {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  console.log('logged ', isLoggedIn);
 
   // const navigation = useNavigation();
   useLoggedInRedirect(isLoggedIn);
@@ -44,7 +46,7 @@ const LoginScreen = () => {
   };
 
   if (isLoggedIn) {
-    return <></>;
+    return <ScreenLoader></ScreenLoader>;
   }
 
   return (

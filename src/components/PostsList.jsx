@@ -16,9 +16,7 @@ const PostsList = () => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (!posts.length) {
-      dispatch(getPosts());
-    }
+    dispatch(getPosts());
   }, [isFocused, name]);
 
   const postsForRender = () => (name === 'ProfileScreen' ? posts.filter(post => post.author === uid) : posts);
