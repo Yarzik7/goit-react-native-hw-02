@@ -4,12 +4,14 @@ import { useIsFocused } from '@react-navigation/native';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome } from '@expo/vector-icons';
+import ScreenLoader from './Loaders/ScreenLoader';
 
 import color from '../constants/colors';
 const { white, backgroundColor, cameraBackgroundColor, primaryTextColor } = color;
 
 const PostImage = ({ imagePath = null, setImagePath }) => {
   const [hasPermission, setHasPermission] = useState(null);
+  const [isGettingPhoto, setIsGettingPhoto] = useState(false);
   const [cameraRef, setCameraRef] = useState(null);
   const [type] = useState(Camera.Constants.Type.back);
 
@@ -29,7 +31,9 @@ const PostImage = ({ imagePath = null, setImagePath }) => {
     }
 
     if (cameraRef) {
+      setTimeout(() => setIsGettingPhoto(true), 750);
       const { uri } = await cameraRef.takePictureAsync();
+      setIsGettingPhoto(false);
       setImagePath(uri);
     }
   };
@@ -63,12 +67,15 @@ const PostImage = ({ imagePath = null, setImagePath }) => {
           ) : null}
         </ImageBackground>
 
-        <TouchableOpacity
-          style={[styles.actionImageButton, imagePath && styles.editImageButton]}
-          onPress={onGetPhoto}
-        >
-          <FontAwesome name="camera" size={24} color={imagePath ? white : primaryTextColor} />
-        </TouchableOpacity>
+        {!isGettingPhoto && (
+          <TouchableOpacity
+            style={[styles.actionImageButton, imagePath && styles.editImageButton]}
+            onPress={onGetPhoto}
+          >
+            <FontAwesome name="camera" size={24} color={imagePath ? white : primaryTextColor} />
+          </TouchableOpacity>
+        )}
+        {isGettingPhoto && <ScreenLoader spinnerSize={60} />}
       </View>
       <TouchableOpacity onPress={onImageAction}>
         <Text style={styles.imageActionText}>{imagePath ? 'Редагувати фото' : 'Завантажте фото'}</Text>

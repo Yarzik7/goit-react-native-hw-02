@@ -6,6 +6,8 @@ import color from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
 
+import { deleteData } from '../firebase/firestore';
+
 const PostDescription = ({
   postId,
   label,
@@ -16,7 +18,10 @@ const PostDescription = ({
   location = 'Location',
 }) => {
   const navigator = useNavigation();
-  const navigateToComments = () => navigator.navigate('CommentsScreen', { img, postId });
+  const navigateToComments = async () => {
+    navigator.navigate('CommentsScreen', { img, postId });
+    await deleteData(postId);
+  };
   const navigateToMap = () => navigator.navigate('MapScreen', { label, coords, location });
 
   return (

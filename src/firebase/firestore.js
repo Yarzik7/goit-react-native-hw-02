@@ -5,6 +5,7 @@ import {
   doc,
   getDoc,
   getDocs,
+  deleteDoc,
   runTransaction,
   where,
   query,
@@ -69,6 +70,20 @@ const updateDataInFirestore = async (collectionName, docId, data) => {
   }
 };
 
+const deleteCallback = async (snapshot, context) => {
+  const postId = context.params;
+  console.log(postId);
+  // const commentsQuery = db.collection('comments').where('author', '==', postId);
+  // const commentsSnapshot = await commentsQuery.get();
+
+  // console.log('comments: ', commentsSnapshot);
+};
+
+const deleteData = async postId => {
+  const postsCollection = collection('posts');
+  postsCollection.doc(postId).onDelete(async (snapshot, context) => {});
+};
+
 const onIncrementCommentCount = async postId => {
   const documentRef = doc(db, 'posts', postId);
 
@@ -87,22 +102,11 @@ const onIncrementCommentCount = async postId => {
   }
 };
 
-export function makePath(length) {
-  let result = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-';
-  const charactersLength = characters.length;
-  let counter = 0;
-  while (counter < length) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    counter += 1;
-  }
-  return result;
-}
-
 export {
   updateDataInFirestore,
   getDataFromFirestore,
   writeDataToFirestore,
   onIncrementCommentCount,
   imagesProcessing,
+  deleteData,
 };

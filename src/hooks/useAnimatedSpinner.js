@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Animated, Easing } from 'react-native';
 
 const useAnimatedSpinner = () => {
-  const rotation = new Animated.Value(0);
+  const rotation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const spin = () => {

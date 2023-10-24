@@ -46,7 +46,7 @@ const LoginScreen = () => {
   };
 
   if (isLoggedIn) {
-    return <ScreenLoader></ScreenLoader>;
+    return <ScreenLoader />;
   }
 
   return (
