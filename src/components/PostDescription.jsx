@@ -5,9 +5,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import color from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
-// import { deletePost } from '../firebase/firestore';
-import { deletePost } from '../redux/posts/operations';
-import { useDispatch } from 'react-redux';
 
 const PostDescription = ({
   postId,

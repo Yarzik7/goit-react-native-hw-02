@@ -6,7 +6,6 @@ import {
 } from 'firebase/auth';
 import { auth } from '../../config';
 import { imagesProcessing } from './firestore';
-import defaultAvatar from '../assets/defaultAvatar.png';
 
 const logOut = async () => {
   await signOut(auth);
