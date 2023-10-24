@@ -1,5 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { writeDataToFirestore, getDataFromFirestore } from '../../firebase/firestore';
+import {
+  writeDataToFirestore,
+  getDataFromFirestore,
+  deletePostFromFirestore,
+} from '../../firebase/firestore';
+import { handleErrorAsyncOperation } from '../../helpers/handleErrorAsyncOperation';
 
 const getPosts = createAsyncThunk('posts/get', async (author, thunkAPI) => {
   try {
@@ -21,4 +26,10 @@ const createPost = createAsyncThunk('posts/create', async (postInfo, thunkAPI) =
   }
 });
 
-export { createPost, getPosts };
+const deletePost = createAsyncThunk('posts/delete', async ({ postId, img }, thunkAPI) => {
+  return await handleErrorAsyncOperation(async () => {
+    await deletePostFromFirestore(postId, img);
+  }, thunkAPI);
+});
+
+export { createPost, getPosts, deletePost };

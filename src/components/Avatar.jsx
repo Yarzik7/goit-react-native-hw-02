@@ -27,7 +27,7 @@ const Avatar = ({ avatarPath = null, setAvatarPath }) => {
 
   return (
     <View style={styles.avatarContainer}>
-      <Image source={{ uri: avatarPath }} resizeMode="cover" style={styles.avatar} />
+      <Image source={{ uri: avatarPath || null }} resizeMode="cover" style={styles.avatar} />
       <TouchableOpacity
         style={[styles.actionImageButton, avatarPath && styles.deleteImageButton]}
         onPress={onAvatarAction}

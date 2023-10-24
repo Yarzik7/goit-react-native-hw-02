@@ -6,7 +6,7 @@ const { secondaryTextColor, emailColor, backgroundColor } = colors;
 const UserInfo = ({ login = 'Name', email, avatarPath = null }) => {
   return (
     <View style={styles.infoContainer}>
-      <Image source={{ uri: avatarPath }} resizeMode="cover" style={styles.avatar} />
+      <Image source={{ uri: avatarPath || null }} resizeMode="cover" style={styles.avatar} />
       <View>
         <Text style={styles.loginText}>{login}</Text>
         <Text style={styles.emailText}>{email}</Text>

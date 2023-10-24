@@ -18,9 +18,7 @@ const LoginScreen = () => {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  console.log('logged ', isLoggedIn);
 
-  // const navigation = useNavigation();
   useLoggedInRedirect(isLoggedIn);
 
   const reset = () => {
@@ -37,12 +35,6 @@ const LoginScreen = () => {
     console.log(userData);
     dispatch(logIn(userData));
     reset();
-    // await loginDB(userData);
-
-    // navigation.navigate('BottomTabs', {
-    //   screen: 'PostsNavigator',
-    //   params: { screen: 'PostsScreen', params: userData },
-    // });
   };
 
   if (isLoggedIn) {

@@ -7,6 +7,7 @@ export const handleErrorAsyncOperation = async (asyncOperation, thunkAPI) => {
     error.status = e.status;
     error.message = e.message;
 
+    console.log('Operation error: ', error);
     return thunkAPI.rejectWithValue(error);
   }
 };

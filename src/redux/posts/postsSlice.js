@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createPost, getPosts } from './operations';
+import { createPost, getPosts, deletePost } from './operations';
 import * as postsReducers from '../../helpers/reduxActionHandlers/postsActionHandlers';
 
 const initialState = {
   items: [],
   isPostsLoading: false,
   isCreatingPost: false,
+  isDeletingPost: false,
+  currentPostId: null,
   error: null,
 };
 
@@ -19,7 +21,10 @@ const postsSlice = createSlice({
       .addCase(createPost.rejected, postsReducers.handleCreatePostRejected)
       .addCase(getPosts.pending, postsReducers.handlePostsActionPending)
       .addCase(getPosts.fulfilled, postsReducers.handleGetPostsFulfilled)
-      .addCase(getPosts.rejected, postsReducers.handleGetPostsRejected),
+      .addCase(getPosts.rejected, postsReducers.handleGetPostsRejected)
+      .addCase(deletePost.pending, postsReducers.handleDeletePostPending)
+      .addCase(deletePost.fulfilled, postsReducers.handleDeletePostFulfilled)
+      .addCase(deletePost.rejected, postsReducers.handleDeletePostRejected),
 });
 
 export const postsReducer = postsSlice.reducer;

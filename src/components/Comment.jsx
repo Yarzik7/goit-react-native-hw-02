@@ -11,7 +11,7 @@ const Comment = ({ photoURL = null, text, date, author }) => {
 
   return (
     <View style={[styles.commentContainer, isCurrentUser && styles.commentCurrentUser]}>
-      <Image source={{ uri: photoURL }} resizeMode="cover" style={styles.userAvatar} />
+      <Image source={{ uri: photoURL || null }} resizeMode="cover" style={styles.userAvatar} />
       <View style={styles.textContainer}>
         <Text style={styles.text}>{text}</Text>
         <Text style={[styles.dateText, isCurrentUser && styles.currentUserDate]}>{date}</Text>

@@ -8,6 +8,11 @@ import {
   handleGetPostsRejected,
   handleGetPostsPending,
 } from './getPostsActionHandlers';
+import {
+  handleDeletePostPending,
+  handleDeletePostFulfilled,
+  handleDeletePostRejected,
+} from './deletePostActionHandlers';
 // import { handleLogoutInTasksFulfilled } from './logoutActionHandlersInTasks/handleLogoutInTasksFulfilled';
 import { handlePostsActionPending } from './handlePostsActionPending';
 
@@ -20,4 +25,7 @@ export {
   handleGetPostsPending,
   // handleLogoutInTasksFulfilled,
   handlePostsActionPending,
+  handleDeletePostPending,
+  handleDeletePostFulfilled,
+  handleDeletePostRejected,
 };

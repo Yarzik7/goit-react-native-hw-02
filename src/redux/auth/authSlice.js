@@ -7,11 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const initialState = {
   user: { uid: null, displayName: null, email: null, photoURL: null },
   isAuthLoading: false,
-  // isRefreshingUser: false,
   isUpdatingUserData: false,
   isLoggedIn: false,
   error: null,
-  // token: null,
 };
 
 const authPersistConfig = {

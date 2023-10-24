@@ -5,8 +5,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import color from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
-
-import { deleteData } from '../firebase/firestore';
+// import { deletePost } from '../firebase/firestore';
+import { deletePost } from '../redux/posts/operations';
+import { useDispatch } from 'react-redux';
 
 const PostDescription = ({
   postId,
@@ -18,10 +19,8 @@ const PostDescription = ({
   location = 'Location',
 }) => {
   const navigator = useNavigation();
-  const navigateToComments = async () => {
-    navigator.navigate('CommentsScreen', { img, postId });
-    await deleteData(postId);
-  };
+
+  const navigateToComments = async () => navigator.navigate('CommentsScreen', { img, postId });
   const navigateToMap = () => navigator.navigate('MapScreen', { label, coords, location });
 
   return (
