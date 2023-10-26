@@ -3,13 +3,11 @@ import Title from '../components/Title';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import AuthLayout from '../components/AuthLayout';
-import { useNavigation } from '@react-navigation/native';
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../redux/auth/selectors';
 import { useLoggedInRedirect } from '../hooks/useIsLoggedInRedirect';
 import { logIn } from '../redux/auth/operations';
-import { loginDB } from '../firebase/auth';
 import ScreenLoader from '../components/Loaders/ScreenLoader';
 
 const LoginScreen = () => {

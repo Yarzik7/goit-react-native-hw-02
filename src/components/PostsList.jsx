@@ -1,5 +1,6 @@
 import { FlatList, StyleSheet } from 'react-native';
 import Post from './Post';
+import Message from './Message';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectPosts, selectIsDeletingPost } from '../redux/posts/selectors';
 import { selectUser } from '../redux/auth/selectors';
@@ -7,7 +8,7 @@ import { useEffect } from 'react';
 import { getPosts } from '../redux/posts/operations';
 import { useRoute, useIsFocused } from '@react-navigation/native';
 
-const PostsList = () => {
+const PostsList = ({ noPostsMassage }) => {
   const posts = useSelector(selectPosts);
   const isDeletingPost = useSelector(selectIsDeletingPost);
   const { uid } = useSelector(selectUser);
@@ -23,14 +24,20 @@ const PostsList = () => {
   const postsForRender = () => (name === 'ProfileScreen' ? posts.filter(post => post.author === uid) : posts);
 
   return (
-    <FlatList
-      data={postsForRender()}
-      renderItem={({ item }) => <Post postInfo={item} />}
-      keyExtractor={item => item.id}
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.postList}
-      style={styles.postListContainer}
-    />
+    <>
+      {posts.length ? (
+        <FlatList
+          data={postsForRender()}
+          renderItem={({ item }) => <Post postInfo={item} />}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.postList}
+          style={styles.postListContainer}
+        />
+      ) : (
+        <Message message={noPostsMassage} />
+      )}
+    </>
   );
 };
 

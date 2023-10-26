@@ -13,9 +13,8 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage
 import { db, storage } from '../../config';
 import { uriToBlob } from '../helpers/uriToBlob';
 
-const imagesProcessing = async (image, storeFolder, id) => {
-  const blobImage = await uriToBlob(image);
-  const filePath = storeFolder + (id || blobImage?._data.name) || id;
+const imagesProcessing = async (blobImage, storeFolder, id) => {
+  const filePath = storeFolder + (id || blobImage._data.name);
   const storageRef = ref(storage, filePath);
 
   await uploadBytes(storageRef, blobImage);
@@ -25,8 +24,15 @@ const imagesProcessing = async (image, storeFolder, id) => {
 
 const writeDataToFirestore = async (route, data) => {
   if (data.postImage) {
-    data.postImage = await imagesProcessing(data.postImage, 'postImages/');
+    data.postImage = await imagesProcessing(await uriToBlob(data.postImage), 'postImages/');
   }
+
+  if (data.commentUserAvatar === null) {
+    const blobImage = new Blob([data.commentUserAvatar], { type: 'image/jpg' });
+    data.commentUserAvatar = await imagesProcessing(blobImage, 'avatars/', data.author + 'Avatar');
+    blobImage.close();
+  }
+
   const { id } = await addDoc(collection(db, route), data);
   return { id, ...data };
 };

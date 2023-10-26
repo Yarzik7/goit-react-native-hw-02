@@ -1,12 +1,14 @@
 import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import Spinner from './Loaders/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUserId } from '../redux/auth/selectors';
+import { selectIsDeletingPost, selectCurrentPostId } from '../redux/posts/selectors';
 import { deletePost } from '../redux/posts/operations';
 import PostDescription from './PostDescription';
 
 import color from '../constants/colors';
-const { secondaryTextColor, backgroundColor, primaryTextColor } = color;
+const { secondaryTextColor, backgroundColor, primaryTextColor, white, accentColor } = color;
 
 const Post = ({
   postInfo: {
@@ -22,6 +24,8 @@ const Post = ({
 }) => {
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
+  const isDeletingPost = useSelector(selectIsDeletingPost);
+  const currentPostId = useSelector(selectCurrentPostId);
   isCurrentUser = author === userId;
 
   const onDeletePost = async () => {
@@ -33,8 +37,12 @@ const Post = ({
       <View style={styles.postImageContainer}>
         <Image source={{ uri: postImage }} resizeMode="cover" style={styles.postImage} />
         {isCurrentUser && (
-          <TouchableOpacity style={styles.postDeleteButton} onPress={onDeletePost}>
-            <Feather name="trash-2" size={24} color={primaryTextColor} />
+          <TouchableOpacity disabled={isDeletingPost} style={styles.postDeleteButton} onPress={onDeletePost}>
+            {isDeletingPost && currentPostId === id ? (
+              <Spinner />
+            ) : (
+              <Feather name="trash-2" size={24} color={white} />
+            )}
           </TouchableOpacity>
         )}
       </View>

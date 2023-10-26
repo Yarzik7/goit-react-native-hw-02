@@ -3,32 +3,23 @@ import { registerDB, loginDB, logOut, updateUserProfile } from '../../firebase/a
 import { handleErrorAsyncOperation } from '../../helpers/handleErrorAsyncOperation';
 
 const register = createAsyncThunk('auth/register', async (credentials, thunkAPI) => {
-  try {
-    const user = await registerDB(credentials);
+  return await handleErrorAsyncOperation(async () => {
+    const { user } = await registerDB(credentials);
     return user;
-  } catch (e) {
-    const { status, message } = e.toJSON();
-    return thunkAPI.rejectWithValue({ status, message });
-  }
+  }, thunkAPI);
 });
 
 const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
-  try {
+  return await handleErrorAsyncOperation(async () => {
     const { uid, displayName, email, photoURL } = await loginDB(credentials);
     return { user: { uid, displayName, email, photoURL } };
-  } catch (e) {
-    const { status, message } = e.toJSON();
-    return thunkAPI.rejectWithValue({ status, message });
-  }
+  }, thunkAPI);
 });
 
 const logOutUser = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  try {
+  return await handleErrorAsyncOperation(async () => {
     await logOut();
-  } catch (e) {
-    const { status, message } = e.toJSON();
-    return thunkAPI.rejectWithValue({ status, message });
-  }
+  }, thunkAPI);
 });
 
 const updateUserData = createAsyncThunk('auth/updateUserData', async (updateData, thunkAPI) => {

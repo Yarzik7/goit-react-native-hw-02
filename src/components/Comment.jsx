@@ -5,13 +5,13 @@ import colors from '../constants/colors';
 import { useSelector } from 'react-redux';
 const { commentContainerBackground, secondaryTextColor, primaryTextColor, backgroundColor } = colors;
 
-const Comment = ({ photoURL = null, text, date, author }) => {
+const Comment = ({ commentUserAvatar = null, text, date, author }) => {
   const { uid } = useSelector(selectUser);
   isCurrentUser = author === uid;
 
   return (
     <View style={[styles.commentContainer, isCurrentUser && styles.commentCurrentUser]}>
-      <Image source={{ uri: photoURL || null }} resizeMode="cover" style={styles.userAvatar} />
+      <Image source={{ uri: commentUserAvatar || null }} resizeMode="cover" style={styles.userAvatar} />
       <View style={styles.textContainer}>
         <Text style={styles.text}>{text}</Text>
         <Text style={[styles.dateText, isCurrentUser && styles.currentUserDate]}>{date}</Text>

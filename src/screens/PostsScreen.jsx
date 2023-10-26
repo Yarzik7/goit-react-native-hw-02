@@ -13,7 +13,7 @@ const PostsScreen = () => {
   return (
     <View style={styles.postsContainer}>
       <UserInfo login={displayName} email={email} avatarPath={photoURL} />
-      <PostsList />
+      <PostsList noPostsMassage="Постів не знайдено" />
     </View>
   );
 };

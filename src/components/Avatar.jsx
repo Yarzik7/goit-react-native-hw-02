@@ -1,6 +1,7 @@
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { AntDesign } from '@expo/vector-icons';
+
 import color from '../constants/colors';
 const { accentColor, white, backgroundColor, borderColor, shadowColor } = color;
 

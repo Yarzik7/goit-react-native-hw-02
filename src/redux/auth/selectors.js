@@ -5,6 +5,7 @@ const selectUserName = state => state.auth.user.displayName;
 const selectUserId = state => state.auth.user.uid;
 const selectIsAuthLoading = state => state.auth.isAuthLoading;
 const selectIsUpdatingUserData = state => state.auth.isUpdatingUserData;
+const selectIsLogout = state => state.auth.isLogout;
 
 export {
   selectIsLoggedIn,
@@ -14,4 +15,5 @@ export {
   selectIsUpdatingUserData,
   selectUserName,
   selectUserId,
+  selectIsLogout,
 };

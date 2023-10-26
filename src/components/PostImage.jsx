@@ -31,7 +31,7 @@ const PostImage = ({ imagePath = null, setImagePath }) => {
     }
 
     if (cameraRef) {
-      setTimeout(() => setIsGettingPhoto(true), 800);
+      setTimeout(() => setIsGettingPhoto(true), 1000);
       const { uri } = await cameraRef.takePictureAsync();
       setIsGettingPhoto(false);
       setImagePath(uri);

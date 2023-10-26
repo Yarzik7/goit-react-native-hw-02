@@ -7,23 +7,17 @@ import {
 import { handleErrorAsyncOperation } from '../../helpers/handleErrorAsyncOperation';
 
 const getPosts = createAsyncThunk('posts/get', async (author, thunkAPI) => {
-  try {
+  return await handleErrorAsyncOperation(async () => {
     const posts = await getDataFromFirestore({ route: 'posts', field: 'author', value: author });
     return posts;
-  } catch (e) {
-    const { status, message } = e.toJSON();
-    return thunkAPI.rejectWithValue({ status, message });
-  }
+  }, thunkAPI);
 });
 
 const createPost = createAsyncThunk('posts/create', async (postInfo, thunkAPI) => {
-  try {
+  return await handleErrorAsyncOperation(async () => {
     const post = await writeDataToFirestore('posts', postInfo);
     return post;
-  } catch (e) {
-    const { status, message } = e.toJSON();
-    return thunkAPI.rejectWithValue({ status, message });
-  }
+  }, thunkAPI);
 });
 
 const deletePost = createAsyncThunk('posts/delete', async ({ postId, img }, thunkAPI) => {

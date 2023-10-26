@@ -4,7 +4,7 @@ import color from '../../constants/colors';
 
 const { accentColor, white } = color;
 
-const SendCommentLoader = () => {
+const Spinner = () => {
   const rotateInterpolate = useAnimatedSpinner();
 
   return (
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SendCommentLoader;
+export default Spinner;

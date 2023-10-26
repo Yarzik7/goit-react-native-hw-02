@@ -1,4 +1,4 @@
 export const handleLogoutRejected = (state, { payload }) => {
-  state.isAuthLoading = false;
+  state.isLogout = false;
   state.error = payload;
 };

@@ -9,8 +9,8 @@ const CommentsList = () => {
   return (
     <FlatList
       data={comments}
-      renderItem={({ item: { commentText, photoURL, date, author } }) => (
-        <Comment text={commentText} photoURL={photoURL} date={date} author={author} />
+      renderItem={({ item: { commentText, commentUserAvatar, date, author } }) => (
+        <Comment text={commentText} commentUserAvatar={commentUserAvatar} date={date} author={author} />
       )}
       keyExtractor={item => item.id}
       showsVerticalScrollIndicator={false}

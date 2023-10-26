@@ -39,8 +39,8 @@ const CreatePostsScreen = () => {
 
   const onCreatePost = async () => {
     let currentCoords = {
-      latitude: 0,
-      longitude: 0,
+      latitude: 51.5287398,
+      longitude: -0.2664052,
     };
 
     try {

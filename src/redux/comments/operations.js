@@ -14,14 +14,11 @@ const getPostCommentsOperation = createAsyncThunk('comments/getComments', async 
 });
 
 const createComment = createAsyncThunk('comments/create', async (commentInfo, thunkAPI) => {
-  try {
+  return await handleErrorAsyncOperation(async () => {
     const comment = await writeDataToFirestore('comments', commentInfo);
     await onIncrementCommentCount(commentInfo.postId);
     return comment;
-  } catch (e) {
-    const { status, message } = e.toJSON();
-    return thunkAPI.rejectWithValue({ status, message });
-  }
+  }, thunkAPI);
 });
 
 export { createComment, getPostCommentsOperation };

@@ -3,7 +3,8 @@ import { useFonts } from 'expo-font';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { store, persistor } from './src/redux/store';
-import Application from './src/components/Application';
+import { NavigationContainer } from '@react-navigation/native';
+import MainNavigator from './src/routes/MainNavigator';
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -19,7 +20,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <Application />
+        <NavigationContainer>
+          <MainNavigator />
+        </NavigationContainer>
       </PersistGate>
     </Provider>
   );
