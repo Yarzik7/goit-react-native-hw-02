@@ -3,13 +3,11 @@ import {
   handleRegisterRejected,
   handleRegisterPending,
 } from './registerActionHandlers';
+
 import { handleLoginFulfilled, handleLoginRejected } from './loginActionHandlers';
+
 import { handleLogoutFulfilled, handleLogoutRejected, handleLogoutPending } from './logoutActionHandlers';
-import {
-  handleRefreshUserFulfilled,
-  handleRefreshUserRejected,
-  handleRefreshUserPending,
-} from './refreshUserActionHandlers';
+
 import {
   handleUpdateUserFulfilled,
   handleUpdateUserRejected,
@@ -26,12 +24,9 @@ export {
   handleLogoutFulfilled,
   handleLogoutRejected,
   handleLoginRejected,
-  handleRefreshUserFulfilled,
-  handleRefreshUserRejected,
   handleUpdateUserFulfilled,
   handleUpdateUserRejected,
   handleAuthActionPending,
-  handleRefreshUserPending,
   handleUpdateUserPending,
   handleLogoutPending,
 };
