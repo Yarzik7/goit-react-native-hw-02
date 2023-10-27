@@ -20,6 +20,7 @@ const Post = ({
     postImageLocation,
     currentCoords,
     author,
+    reviewers,
   },
 }) => {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ const Post = ({
         location={postImageLocation}
         label={postName}
         coords={currentCoords}
+        reviewers={reviewers}
       />
     </View>
   );

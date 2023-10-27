@@ -10,7 +10,7 @@ import {
   query,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
-import { db, storage } from '../../config';
+import { db, storage, auth } from '../../config';
 import { uriToBlob } from '../helpers/uriToBlob';
 
 import moment from 'moment/moment';
@@ -91,18 +91,47 @@ const onIncrementCommentCount = async (postId, author) => {
     const documentSnapshot = await transaction.get(documentRef);
     if (documentSnapshot.exists()) {
       const currentNumber = documentSnapshot.data().commentsCount;
-      const currentReviewers = documentSnapshot.data().reviewers;
+      const currentReviewers = documentSnapshot.data().reviewers ?? [];
 
       const updateData = {
         commentsCount: currentNumber + 1,
       };
 
-      if (!reviewers.includes(author)) {
+      if (!currentReviewers.includes(author)) {
         currentReviewers.push(author);
         updateData.reviewers = currentReviewers;
       }
 
       transaction.update(documentRef, updateData);
+    }
+  });
+};
+
+const onChangeLike = async (postId, author = auth.currentUser.uid) => {
+  const documentRef = doc(db, 'posts', postId);
+
+  return await runTransaction(db, async transaction => {
+    const documentSnapshot = await transaction.get(documentRef);
+    if (documentSnapshot.exists()) {
+      const currentNumber = documentSnapshot.data().likesCount;
+      const currentLikers = documentSnapshot.data().likers ?? [];
+
+      const likeAuthorIndex = currentLikers.indexOf(author);
+
+      const updateData = {
+        likesCount: currentNumber + (!!~likeAuthorIndex ? -1 : 1),
+      };
+
+      if (likeAuthorIndex === -1) {
+        currentLikers.push(author);
+      } else {
+        currentLikers.splice(likeAuthorIndex, 1);
+      }
+
+      updateData.likers = currentLikers;
+
+      transaction.update(documentRef, updateData);
+      return { postId, likesCount: updateData.likesCount };
     }
   });
 };
@@ -114,4 +143,5 @@ export {
   onIncrementCommentCount,
   imagesProcessing,
   deletePostFromFirestore,
+  onChangeLike,
 };

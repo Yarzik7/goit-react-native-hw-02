@@ -13,6 +13,12 @@ import {
   handleDeletePostFulfilled,
   handleDeletePostRejected,
 } from './deletePostActionHandlers';
+import {
+  handleChangeLikePending,
+  handleChangeLikeFulfilled,
+  handleChangeLikeRejected,
+} from './changeLikeActionHandlers';
+
 import { handleLogoutInPostsFulfilled } from './logoutActionHandlersInPosts/handleLogoutInPostsFulfilled';
 import { handlePostsActionPending } from './handlePostsActionPending';
 
@@ -28,4 +34,7 @@ export {
   handleDeletePostFulfilled,
   handleDeletePostRejected,
   handleLogoutInPostsFulfilled,
+  handleChangeLikePending,
+  handleChangeLikeFulfilled,
+  handleChangeLikeRejected,
 };

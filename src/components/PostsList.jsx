@@ -18,7 +18,7 @@ const PostsList = ({ noPostsMassage }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    (name === 'PostsScreen' || !isDeletingPost) && dispatch(getPosts());
+    (name === 'PostsScreen' || !isDeletingPost) && dispatch(getPosts(uid));
   }, [isFocused, name, isDeletingPost]);
 
   const postsForRender = () => (name === 'ProfileScreen' ? posts.filter(post => post.author === uid) : posts);

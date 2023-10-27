@@ -4,6 +4,8 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import color from '../constants/colors';
 import { useNavigation } from '@react-navigation/native';
+import { changeLike } from '../redux/posts/operations';
+import { useDispatch } from 'react-redux';
 const { secondaryTextColor, accentColor, primaryTextColor } = color;
 
 const PostDescription = ({
@@ -13,29 +15,32 @@ const PostDescription = ({
   img,
   commentsCount = 0,
   likesCount = 0,
+  reviewers,
   location = 'Location',
 }) => {
   const navigator = useNavigation();
+  const dispatch = useDispatch();
 
   const navigateToComments = async () => navigator.navigate('CommentsScreen', { img, postId });
   const navigateToMap = () => navigator.navigate('MapScreen', { label, coords, location });
+  const onChangeLike = async () => await dispatch(changeLike(postId));
 
   return (
     <View style={styles.descriptionContainer}>
       <TouchableOpacity style={styles.descriptionItem} onPress={navigateToComments}>
         <FontAwesome
-          name={commentsCount ? 'comment' : 'comment-o'}
+          name={reviewers ? 'comment' : 'comment-o'}
           size={24}
-          color={commentsCount ? accentColor : primaryTextColor}
+          color={reviewers ? accentColor : primaryTextColor}
           style={styles.commentIcon}
         />
         <Text style={styles.descriptionText}>{commentsCount}</Text>
       </TouchableOpacity>
 
-      <View style={[styles.descriptionItem, styles.likes]}>
+      <TouchableOpacity style={[styles.descriptionItem, styles.likes]} onPress={onChangeLike}>
         <Feather name="thumbs-up" size={24} color={likesCount ? accentColor : primaryTextColor} />
         <Text style={styles.descriptionText}>{likesCount}</Text>
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity style={[styles.descriptionItem, styles.location]} onPress={navigateToMap}>
         <Feather name="map-pin" size={24} color={primaryTextColor} />
