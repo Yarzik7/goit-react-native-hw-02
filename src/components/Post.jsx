@@ -21,6 +21,7 @@ const Post = ({
     currentCoords,
     author,
     reviewers,
+    likers,
   },
 }) => {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ const Post = ({
         label={postName}
         coords={currentCoords}
         reviewers={reviewers}
+        likers={likers}
       />
     </View>
   );

@@ -16,6 +16,7 @@ const PostDescription = ({
   commentsCount = 0,
   likesCount = 0,
   reviewers,
+  likers,
   location = 'Location',
 }) => {
   const navigator = useNavigation();
@@ -38,7 +39,7 @@ const PostDescription = ({
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.descriptionItem, styles.likes]} onPress={onChangeLike}>
-        <Feather name="thumbs-up" size={24} color={likesCount ? accentColor : primaryTextColor} />
+        <Feather name="thumbs-up" size={24} color={likers ? accentColor : primaryTextColor} />
         <Text style={styles.descriptionText}>{likesCount}</Text>
       </TouchableOpacity>
 

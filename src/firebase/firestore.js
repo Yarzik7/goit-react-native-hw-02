@@ -131,7 +131,7 @@ const onChangeLike = async (postId, author = auth.currentUser.uid) => {
       updateData.likers = currentLikers;
 
       transaction.update(documentRef, updateData);
-      return { postId, likesCount: updateData.likesCount };
+      return { postId, likesCount: updateData.likesCount, likers: !~likeAuthorIndex };
     }
   });
 };
