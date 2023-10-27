@@ -1,10 +1,10 @@
 import { FlatList, StyleSheet } from 'react-native';
 import Comment from './Comment';
-import { selectComments } from '../redux/comments/selectors';
+import { selectSortedByCreatedTimeComments } from '../redux/comments/selectors';
 import { useSelector } from 'react-redux';
 
 const CommentsList = () => {
-  const comments = useSelector(selectComments);
+  const comments = useSelector(selectSortedByCreatedTimeComments);
 
   return (
     <FlatList

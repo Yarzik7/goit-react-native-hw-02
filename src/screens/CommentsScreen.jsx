@@ -40,6 +40,7 @@ const CommentsScreen = () => {
       postId,
       date: moment().locale('uk').format('DD MMMM, YYYY | HH:mm'),
       commentUserAvatar: photoURL || null,
+      updateTime: moment().unix(),
     };
 
     const res = await dispatch(createComment(commentData));

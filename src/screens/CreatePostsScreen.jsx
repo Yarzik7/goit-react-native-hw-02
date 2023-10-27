@@ -4,6 +4,7 @@ import PostInfoInput from '../components/PostInfoInput';
 import Button from '../components/Button';
 import KeyboardLayout from '../components/KeyboardLayout';
 import * as Location from 'expo-location';
+import moment from 'moment/moment';
 import { Feather } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -67,8 +68,10 @@ const CreatePostsScreen = () => {
         author,
         likesCount: 0,
         commentsCount: 0,
+        updateTime: moment().unix(),
       };
 
+      console.log('time: ', moment().format());
       const res = await dispatch(createPost(postData));
       if (res.meta.requestStatus === 'fulfilled') {
         reset();

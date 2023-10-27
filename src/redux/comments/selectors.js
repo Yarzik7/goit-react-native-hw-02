@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+import { postEntitySortByCreateTime } from '../../helpers/sorting/postEntitySortByCreateTime';
 
 const selectComments = state => state.comments.items;
 const selectIsCommentsLoading = state => state.comments.isCommentsLoading;
@@ -9,4 +10,14 @@ const selectCommentsOperations = createSelector(
   (isCommentsLoading, isCreatingComment) => ({ isCommentsLoading, isCreatingComment })
 );
 
-export { selectComments, selectIsCommentsLoading, selectIsCreatingComment, selectCommentsOperations };
+const selectSortedByCreatedTimeComments = createSelector([selectComments], comments => {
+  return postEntitySortByCreateTime(comments);
+});
+
+export {
+  selectComments,
+  selectIsCommentsLoading,
+  selectIsCreatingComment,
+  selectCommentsOperations,
+  selectSortedByCreatedTimeComments,
+};

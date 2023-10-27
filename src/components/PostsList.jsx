@@ -2,14 +2,14 @@ import { FlatList, StyleSheet } from 'react-native';
 import Post from './Post';
 import Message from './Message';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectPosts, selectIsDeletingPost } from '../redux/posts/selectors';
+import { selectIsDeletingPost, selectSortedByCreatedTimePosts } from '../redux/posts/selectors';
 import { selectUser } from '../redux/auth/selectors';
 import { useEffect } from 'react';
 import { getPosts } from '../redux/posts/operations';
 import { useRoute, useIsFocused } from '@react-navigation/native';
 
 const PostsList = ({ noPostsMassage }) => {
-  const posts = useSelector(selectPosts);
+  const posts = useSelector(selectSortedByCreatedTimePosts);
   const isDeletingPost = useSelector(selectIsDeletingPost);
   const { uid } = useSelector(selectUser);
   const dispatch = useDispatch();

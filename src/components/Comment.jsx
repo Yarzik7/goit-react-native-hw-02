@@ -1,4 +1,6 @@
 const { View, Text, Image, StyleSheet } = require('react-native');
+import moment from 'moment/moment';
+import 'moment/locale/uk';
 
 import { selectUser } from '../redux/auth/selectors';
 import colors from '../constants/colors';
