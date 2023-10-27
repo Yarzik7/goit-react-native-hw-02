@@ -1,4 +1,4 @@
-import { View, Image, TextInput, StyleSheet, TouchableOpacity, Keyboard } from 'react-native';
+import { View, Image, TextInput, StyleSheet, TouchableOpacity, Keyboard, ToastAndroid } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import CommentsList from '../components/CommentsList';
@@ -28,10 +28,20 @@ const CommentsScreen = () => {
   } = useRoute();
 
   useEffect(() => {
-    dispatch(getPostCommentsOperation(postId));
+    const fetchComments = async () => {
+      const getCommentsResult = await dispatch(getPostCommentsOperation(postId));
+      if (getCommentsResult.error) {
+        ToastAndroid.show(
+          `Не вдалося отримати коментарі: ${getCommentsResult.payload.message}`,
+          ToastAndroid.SHORT
+        );
+      }
+    };
+
+    fetchComments();
 
     return () => dispatch(commentsClear());
-  }, [postId]);
+  }, [postId, dispatch]);
 
   const onSendComment = async () => {
     const commentData = {
@@ -43,11 +53,18 @@ const CommentsScreen = () => {
       updateTime: moment().unix(),
     };
 
-    const res = await dispatch(createComment(commentData));
-    if (res.meta.requestStatus === 'fulfilled') {
-      setCommentText('');
-      Keyboard.dismiss();
+    const createCommentResult = await dispatch(createComment(commentData));
+    
+    if (createCommentResult.error) {
+      ToastAndroid.show(
+        `Не вдалося відправити коментар: ${createCommentResult.payload.message}`,
+        ToastAndroid.SHORT
+      );
+      return;
     }
+
+    setCommentText('');
+    Keyboard.dismiss();
   };
 
   return (
@@ -55,9 +72,9 @@ const CommentsScreen = () => {
       <View style={styles.commentsScreenContainer}>
         <Image source={{ uri: img }} resizeMode="cover" style={styles.postImage} />
 
-        <CommentsList postId={postId} />
+        <CommentsList noCommentsMassage={'Коментарів не знайдено'} />
 
-        <View>
+        <View style={styles.commentInputBox}>
           <TextInput
             value={commentText}
             placeholder="Коментувати..."
@@ -110,6 +127,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: accentColor,
     borderRadius: 50,
+  },
+  commentInputBox: {
+    marginTop: 'auto',
   },
 });
 

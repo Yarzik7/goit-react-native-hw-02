@@ -11,7 +11,7 @@ const selectCommentsOperations = createSelector(
 );
 
 const selectSortedByCreatedTimeComments = createSelector([selectComments], comments => {
-  return postEntitySortByCreateTime(comments);
+  return postEntitySortByCreateTime(comments, 'up');
 });
 
 export {

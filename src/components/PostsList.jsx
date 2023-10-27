@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, ToastAndroid } from 'react-native';
 import Post from './Post';
 import Message from './Message';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,8 +18,19 @@ const PostsList = ({ noPostsMassage }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    (name === 'PostsScreen' || !isDeletingPost) && dispatch(getPosts(uid));
-  }, [isFocused, name, isDeletingPost]);
+    const fetchPosts = async () => {
+      if (name === 'PostsScreen' || !isDeletingPost) {
+        const getPostsResult = await dispatch(getPosts(uid));
+        if (getPostsResult.error) {
+          ToastAndroid.show(
+            `Не вдалося отримати ${posts.length ? 'нові ' : ''}пости: ${getPostsResult.payload.message}`,
+            ToastAndroid.SHORT
+          );
+        }
+      }
+    };
+    fetchPosts();
+  }, [isFocused, name, isDeletingPost, dispatch]);
 
   const postsForRender = () => (name === 'ProfileScreen' ? posts.filter(post => post.author === uid) : posts);
 

@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, ToastAndroid } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -24,7 +24,15 @@ const PostDescription = ({
 
   const navigateToComments = async () => navigator.navigate('CommentsScreen', { img, postId });
   const navigateToMap = () => navigator.navigate('MapScreen', { label, coords, location });
-  const onChangeLike = async () => await dispatch(changeLike(postId));
+  const onChangeLike = async () => {
+    const changeLikeResult = await dispatch(changeLike(postId));
+    if (changeLikeResult.error) {
+      ToastAndroid.show(
+        `Не вдалося ${likers ? 'відмінити' : 'поставити'} лайк: ${changeLikeResult.payload.message}`,
+        ToastAndroid.SHORT
+      );
+    }
+  };
 
   return (
     <View style={styles.descriptionContainer}>

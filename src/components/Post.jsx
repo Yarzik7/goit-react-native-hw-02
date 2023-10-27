@@ -1,4 +1,4 @@
-import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, Text, View, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Spinner from './Loaders/Spinner';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +8,7 @@ import { deletePost } from '../redux/posts/operations';
 import PostDescription from './PostDescription';
 
 import color from '../constants/colors';
-const { secondaryTextColor, backgroundColor, primaryTextColor, white, accentColor } = color;
+const { secondaryTextColor, backgroundColor, white } = color;
 
 const Post = ({
   postInfo: {
@@ -31,7 +31,10 @@ const Post = ({
   isCurrentUser = author === userId;
 
   const onDeletePost = async () => {
-    await dispatch(deletePost({ postId: id, img: postImage }));
+    const deletePostResult = await dispatch(deletePost({ postId: id, img: postImage }));
+    if (deletePostResult.error) {
+      ToastAndroid.show(`Не вдалося видалити пост: ${deletePostResult.payload.message}`, ToastAndroid.SHORT);
+    }
   };
 
   return (

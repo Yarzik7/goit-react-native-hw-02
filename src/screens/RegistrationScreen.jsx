@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ToastAndroid } from 'react-native';
 import Title from '../components/Title';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../redux/auth/selectors';
@@ -30,13 +30,21 @@ const RegistrationScreen = () => {
   };
 
   const onSubmit = async () => {
-    if (!login || !email || !password) {
-      console.log('Заповніть будь ласка всі поля!');
+    if (!login.trim() || !email.trim() || !password.trim()) {
+      ToastAndroid.show('Заповніть будь ласка всі поля!', ToastAndroid.SHORT);
       return;
     }
-    const userData = { login, email, password, avatarPath };
 
-    dispatch(register(userData));
+    const userData = { login: login.trim(), email: email.trim(), password: password.trim(), avatarPath };
+
+    const registrationResult = await dispatch(register(userData));
+    if (registrationResult.error) {
+      ToastAndroid.show(
+        `Виникла помилка реєстрації: ${registrationResult.payload.message}`,
+        ToastAndroid.SHORT
+      );
+      return;
+    }
     reset();
   };
 

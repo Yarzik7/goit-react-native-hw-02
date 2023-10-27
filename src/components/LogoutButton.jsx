@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import Spinner from './Loaders/Spinner';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { logOutUser } from '../redux/auth/operations';
@@ -28,7 +28,10 @@ const LogoutButton = ({ style = {} }) => {
   }, [isLoggedIn]);
 
   const onNavigateByLogout = async () => {
-    dispatch(logOutUser());
+    const logOutResult = await dispatch(logOutUser());
+    if (logOutResult.error) {
+      ToastAndroid.show(`Не вдалося вийти з аккаунту: ${logOutResult.payload.message}`, ToastAndroid.SHORT);
+    }
   };
 
   return (

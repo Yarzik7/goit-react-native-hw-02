@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native';
 import PostImage from '../components/PostImage';
 import PostInfoInput from '../components/PostInfoInput';
 import Button from '../components/Button';
@@ -47,7 +47,7 @@ const CreatePostsScreen = () => {
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        console.log('Permission to access location was denied');
+        ToastAndroid.show('У доступі до місцезнаходження відмовлено', ToastAndroid.SHORT);
       }
 
       let location = await Location.getCurrentPositionAsync({});
@@ -56,7 +56,7 @@ const CreatePostsScreen = () => {
         longitude: location.coords.longitude,
       };
     } catch (error) {
-      console.log('Не вдалося отримати координати вашого місцезнаходження');
+      ToastAndroid.show('Не вдалося отримати ваші координати. Можливо немає дозволу', ToastAndroid.SHORT);
     } finally {
       setCoords(currentCoords);
 
@@ -74,11 +74,18 @@ const CreatePostsScreen = () => {
       };
 
       console.log('time: ', moment().format());
-      const res = await dispatch(createPost(postData));
-      if (res.meta.requestStatus === 'fulfilled') {
-        reset();
-        navigation.navigate('PostsScreen');
+      const createPostResult = await dispatch(createPost(postData));
+
+      if (createPostResult.error) {
+        ToastAndroid.show(
+          `Не вдалося створити пост: ${createPostResult.payload.message}`,
+          ToastAndroid.SHORT
+        );
+        return;
       }
+
+      reset();
+      navigation.navigate('PostsScreen');
     }
   };
 

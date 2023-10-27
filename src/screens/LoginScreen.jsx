@@ -1,9 +1,9 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ToastAndroid } from 'react-native';
 import Title from '../components/Title';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import AuthLayout from '../components/AuthLayout';
-import { useState} from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../redux/auth/selectors';
 import { useLoggedInRedirect } from '../hooks/useIsLoggedInRedirect';
@@ -25,13 +25,18 @@ const LoginScreen = () => {
   };
 
   const onSubmit = async () => {
-    if (!email || !password) {
-      console.log('Заповніть будь ласка всі поля!');
+    if (!email.trim() || !password.trim()) {
+      ToastAndroid.show('Заповніть будь ласка всі поля!', ToastAndroid.SHORT);
       return;
     }
-    const userData = { email, password };
-    console.log(userData);
-    dispatch(logIn(userData));
+
+    const userData = { email: email.trim(), password: password.trim() };
+    const loginResult = await dispatch(logIn(userData));
+
+    if (loginResult.error) {
+      ToastAndroid.show(`Виникла помилка авторизації: ${loginResult.payload.message}`, ToastAndroid.SHORT);
+      return;
+    }
     reset();
   };
 
