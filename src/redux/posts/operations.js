@@ -9,6 +9,7 @@ import { handleErrorAsyncOperation } from '../../helpers/handleErrorAsyncOperati
 const getPosts = createAsyncThunk('posts/get', async (author, thunkAPI) => {
   return await handleErrorAsyncOperation(async () => {
     const posts = await getDataFromFirestore({ route: 'posts', field: 'author', value: author });
+    
     return posts;
   }, thunkAPI);
 });

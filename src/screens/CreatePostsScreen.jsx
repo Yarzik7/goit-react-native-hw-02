@@ -68,6 +68,8 @@ const CreatePostsScreen = () => {
         author,
         likesCount: 0,
         commentsCount: 0,
+        reviewers: [],
+        likers: [],
         updateTime: moment().unix(),
       };
 

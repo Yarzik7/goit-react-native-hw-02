@@ -16,7 +16,7 @@ const getPostCommentsOperation = createAsyncThunk('comments/getComments', async 
 const createComment = createAsyncThunk('comments/create', async (commentInfo, thunkAPI) => {
   return await handleErrorAsyncOperation(async () => {
     const comment = await writeDataToFirestore('comments', commentInfo);
-    await onIncrementCommentCount(commentInfo.postId);
+    await onIncrementCommentCount(commentInfo.postId, commentInfo.author);
     return comment;
   }, thunkAPI);
 });

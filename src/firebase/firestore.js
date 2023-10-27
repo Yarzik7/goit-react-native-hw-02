@@ -84,15 +84,25 @@ const deletePostFromFirestore = async (postId, imageURL) => {
   await deleteObject(imageRef);
 };
 
-const onIncrementCommentCount = async postId => {
+const onIncrementCommentCount = async (postId, author) => {
   const documentRef = doc(db, 'posts', postId);
 
   await runTransaction(db, async transaction => {
     const documentSnapshot = await transaction.get(documentRef);
     if (documentSnapshot.exists()) {
       const currentNumber = documentSnapshot.data().commentsCount;
-      const updatedNumber = currentNumber + 1;
-      transaction.update(documentRef, { commentsCount: updatedNumber });
+      const currentReviewers = documentSnapshot.data().reviewers;
+
+      const updateData = {
+        commentsCount: currentNumber + 1,
+      };
+
+      if (!reviewers.includes(author)) {
+        currentReviewers.push(author);
+        updateData.reviewers = currentReviewers;
+      }
+
+      transaction.update(documentRef, updateData);
     }
   });
 };
