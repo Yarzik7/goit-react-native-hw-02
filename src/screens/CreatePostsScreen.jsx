@@ -73,7 +73,6 @@ const CreatePostsScreen = () => {
         updateTime: moment().unix(),
       };
 
-      console.log('time: ', moment().format());
       const createPostResult = await dispatch(createPost(postData));
 
       if (createPostResult.error) {
